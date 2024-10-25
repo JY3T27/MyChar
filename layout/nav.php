@@ -13,7 +13,7 @@ if (isset($_SESSION["UID"])) {
                             <li><a href="index.php" class="active">Home</a></li>
                             <li><a href="index.php#about">About</a></li>
                             <li><a href="charitylist.php">Charity</a></li>
-                            <li><a href="#">Recent</a></li>
+                            <li><a href="content.php">Discover</a></li>
                             <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="profile.php">Profile</a></li>
@@ -39,7 +39,7 @@ if (isset($_SESSION["UID"])) {
                             <li><a href="index.php" class="active">Home</a></li>
                             <li><a href="index.php#about">About</a></li>
                             <li><a href="charitylist.php">Charity</a></li>
-                            <li><a href="#">Recent</a></li>
+                            <li><a href="content.php">Discover</a></li>
                             <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="profile.php">Profile</a></li>
@@ -66,7 +66,7 @@ if (isset($_SESSION["UID"])) {
                             <li><a href="index.php" class="active">Home</a></li>
                             <li><a href="index.php#about">About</a></li>
                             <li><a href="charitylist.php">Charity</a></li>
-                            <li><a href="#">Recent</a></li>
+                            <li><a href="content.php">Discover</a></li>
                             <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="profile.php">Profile</a></li>
@@ -93,7 +93,7 @@ if (isset($_SESSION["UID"])) {
                 <li><a href="index.php" class="active">Home</a></li>
                 <li><a href="index.php#about">About</a></li>
                 <li><a href="charitylist.php">Charity</a></li>
-                <li><a href="#">Recent</a></li>
+                <li><a href="content.php">Discover</a></li>
             </ul>
         </nav>
         <a class="btn-getstarted" href="login.php">Get Started</a>

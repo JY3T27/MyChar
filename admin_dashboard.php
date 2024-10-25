@@ -74,7 +74,7 @@ include 'config.php';
 
     <main class="main">
         <section id="adminDashboard" class="adminDashBoard section">
-            <div class="container admin-container col-md-8 pt-5">
+            <div class="container admin-container col-md-8 py-5">
                 <div class="row pt-5">
                     <div class="col section-header">
                         <h2>Admin Dashboard</h2>
@@ -83,8 +83,8 @@ include 'config.php';
                 <div class="row justify-content-center pb-5">
                     <div class="col-md-4 justify-content-center pb-3">
                         <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Total Number of User</h4>
+                            <div class="card-header" id="admin-graph">
+                                <h4 class="card-title">Number of User</h4>
                                 <p class="card-category">Since website launched</p>
                             </div>
                             <div class="card-body">
@@ -94,8 +94,8 @@ include 'config.php';
                     </div>
                     <div class="col-md-4 pb-3">
                         <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Total Number of Donor</h4>
+                            <div class="card-header" id="admin-graph">
+                                <h4 class="card-title">Number of Donor</h4>
                                 <p class="card-category">Since website launched</p>
                             </div>
                             <div class="card-body">
@@ -105,7 +105,7 @@ include 'config.php';
                     </div>
                     <div class="col-md-4 pb3">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header" id="admin-graph">
                                 <h4 class="card-title">Number of Charity Joined</h4>
                                 <p class="card-category">Since website launched</p>
                             </div>
@@ -114,6 +114,76 @@ include 'config.php';
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row px-5 pb-5">
+                    <h3>Feedbacks & Reviews</h3>
+                    <table class="table">
+                        <tr>
+                            <th width="10%">No</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th width="5%">Status</th>
+                            <th width="15%">Action</th>
+                        </tr>
+                        <?php
+                        $sql = "SELECT * FROM feedback";
+                        $result = mysqli_query($conn, $sql);
+                        if ($result) {
+                            if (mysqli_num_rows($result) > 0) {
+                                $numrow = 1;
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<tr><td>" .  $numrow . "</td><td>" . $row["feedback_title"] . "</td><td>" . $row["feedback_date"] . "</td>";
+                                    if ($row['feedback_status'] == 1)
+                                        echo '<td><input type="checkbox" checked disabled></td>';
+                                    else
+                                        echo '<td id="tickbox"><input type="checkbox" disabled></td>';
+                                    echo '<td> <a href="feedback_details.php?id=' . $row["feedback_id"] . '">View</a></td>';
+                                    echo "</tr>" . "\n\t\t";
+                                    $numrow++;
+                                }
+                            } else {
+                                echo '<tr><td colspan="5">0 results</td></tr>';
+                            }
+                        } else {
+                            echo "Error: " . mysqli_error($conn);
+                        }
+                        ?>
+                    </table>
+                </div>
+                <div class="row px-5 pb-5">
+                    <h3>Reports</h3>
+                    <table class="table">
+                        <tr>
+                            <th width="10%">No</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th width="5%">Status</th>
+                            <th width="15%">Action</th>
+                        </tr>
+                        <?php
+                        $sql = "SELECT * FROM report";
+                        $result = mysqli_query($conn, $sql);
+                        if ($result) {
+                            if (mysqli_num_rows($result) > 0) {
+                                $numrow = 1;
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<tr><td>" .  $numrow . "</td><td>" . $row["report_title"] . "</td><td>" . $row["report_date"] . "</td>";
+                                    if ($row['report_status'] == 1)
+                                        echo '<td><input type="checkbox" checked disabled></td>';
+                                    else
+                                        echo '<td id="tickbox"><input type="checkbox" disabled></td>';
+                                    echo '<td> <a href="feedback_details.php?id=' . $row["feedback_id"] . '">View</a></td>';
+                                    echo "</tr>" . "\n\t\t";
+                                    $numrow++;
+                                }
+                            } else {
+                                echo '<tr><td colspan="5">0 results</td></tr>';
+                            }
+                        } else {
+                            echo "Error: " . mysqli_error($conn);
+                        }
+                        ?>
+                    </table>
                 </div>
             </div>
         </section>

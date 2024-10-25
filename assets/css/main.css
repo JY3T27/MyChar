@@ -17,6 +17,7 @@
   --font-darkcolor:#0E2E50;
   --box-hover-color: #8cd58d;
   --card-hover-color: #a1dda0;
+  --dark-accent-color: #2d6631;
   scroll-behavior: smooth;
 }
 
@@ -45,7 +46,10 @@ a {
 
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
-  text-decoration: none;
+}
+
+a:focus {
+  color: var(--dark-accent-color);
 }
 
 h1,
@@ -989,3 +993,39 @@ h6 {
   color: var(--accent-color);
   text-shadow: 0 0 5px var(--box-hover-color);
 }
+
+/*--------------------------------------------------------------
+# Admin Dashboard Section
+--------------------------------------------------------------*/
+.admin-container th, td {
+  border: 1px solid var(--default-color);
+  height: 50px;
+  vertical-align: middle;
+}
+
+.admin-container th {
+  background-color: var(--default-color);
+  color: var(--background-color);
+  border: 1px solid var(--background-color);
+}
+
+#tickbox {
+  text-align: center; 
+}
+
+#admin-graph {
+  background-color: var(--default-color);
+  color: var(--background-color);
+}
+
+.admin-container a:hover {
+  text-decoration: underline;
+}
+
+.admin-container h4 {
+  color: var(--accent-color);
+}
+
+/*--------------------------------------------------------------
+# Content Section
+--------------------------------------------------------------*/

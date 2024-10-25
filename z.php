@@ -3,45 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Preview Example</title>
+    <title>Card Example</title>
     <style>
-        /* Styling for the preview image */
-        #image-preview {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            margin-bottom: 10px;
-            display: none; /* Hide by default */
+        /* Card container */
+        .card {
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #f8f9fa; /* Card background color */
+            color: #333;               /* Text color */
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        /* Change color on hover */
+        .card:hover {
+            background-color: #007bff; /* New color on hover */
+            color: #fff;               /* Text color on hover */
         }
     </style>
 </head>
 <body>
-
-    <!-- Image Preview -->
-    <img id="image-preview" alt="Image Preview">
-
-    <!-- File input for image upload -->
-    <input type="file" id="image-input" accept="image/*">
-
-    <script>
-        // Select the input and image elements
-        const imageInput = document.getElementById('image-input');
-        const imagePreview = document.getElementById('image-preview');
-
-        // Add an event listener to detect file selection
-        imageInput.addEventListener('change', function() {
-            const file = imageInput.files[0]; // Get the selected file
-            if (file) {
-                // Create a URL for the file and set it as the src of the image preview
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result; // Set the image source to the uploaded file
-                    imagePreview.style.display = 'block'; // Show the image preview
-                };
-                reader.readAsDataURL(file); // Read the file as a data URL (base64 encoded)
-            }
-        });
-    </script>
-
+    <div class="card">
+        <h3>Card Title</h3>
+        <p>This is a simple card example. Hover over the card to change its color.</p>
+    </div>
 </body>
 </html>

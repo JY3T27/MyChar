@@ -94,6 +94,19 @@ include 'config.php';
         } else {
             echo "Error: " . mysqli_error($conn);
         }
+    } else if ($role == 'admin') {
+        $sql = "SELECT * FROM users WHERE user_role = '$role' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            if (mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                $profile_name = "Super Admin";
+                $profile_email = $row['user_email'];
+                $profile_joinDate = $row['user_joinDate'];
+            }
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
     } else {
         echo "Error: " . mysqli_error($conn);
     }
