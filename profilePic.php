@@ -83,7 +83,6 @@ include 'config.php';
                     // Process the uploaded image
                     $uploadDir = "assets/img/uploads/"; // Set your desired upload directory
                     $uploadFile = $uploadDir . basename($_FILES['pic_input']['name']);
-                    echo $uploadFile;
                     // Move the uploaded file to the specified directory
                     if (move_uploaded_file($_FILES['pic_input']['tmp_name'], $uploadFile)) {
                         // Update the profile with the new image filename

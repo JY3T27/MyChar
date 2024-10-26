@@ -25,6 +25,14 @@ include 'config.php';
                         <p>Activites conducted by Charity or Sharing from Charity</p>
                     </div>
                 </div>
+                <div class="row post-option">
+                    <div class="col">
+                        <h5>Feel free to post any news and activities</h5>
+                    </div>
+                    <div class="col-1">
+                        <a href="content_create.php"><i class="fa fa-chevron-right fs-2" aria-hidden="true"></i></a>
+                    </div>
+                </div>
             </div>
         </section>
 

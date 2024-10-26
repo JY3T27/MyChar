@@ -60,7 +60,6 @@ include 'config.php';
                                 <label for="star1">★</label>
                             </div>
                         </div>
-
                         <div class="row justify-content-md-center mt-3 px-5">
                             <div class="col">
                                 <button type="submit" value="Update" class="profile-Editbtn" id="feedbackbtn">Sent</button>
