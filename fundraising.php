@@ -26,15 +26,24 @@ include 'config.php';
                     </div>
                 </div>
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'charity'): ?>
-                <div class="row post-option">
-                    <div class="col d-flex align-items-center">
-                        <h5>Commencing a new Fundraising Campaign</h5>
+                    <div class="row post-option">
+                        <div class="col d-flex align-items-center">
+                            <h5>Commencing a new Fundraising Campaign</h5>
+                        </div>
+                        <div class="col-1">
+                            <a href="fundraising_create.php"><i class="fa fa-chevron-right fs-2" aria-hidden="true"></i></a>
+                        </div>
                     </div>
-                    <div class="col-1">
-                        <a href="fundraising_create.php"><i class="fa fa-chevron-right fs-2" aria-hidden="true"></i></a>
+                <?php endif; ?>
+                <div class="row fundraisingList">
+                    <div class="col-4">
+                        <img src="assets\img\sample-content.png" alt="Picture for Fundraising" id="fundImg" class="image-fluid image-fundraising">
+                    </div>
+                    <div class="col align-self-center">
+                        <h2>TestingFundraising1</h2>
+                        <p>Target: RM8888.88</p>
                     </div>
                 </div>
-                <?php endif; ?>
             </div>
         </section>
 

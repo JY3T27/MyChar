@@ -1075,3 +1075,24 @@ p {
 .currency-symbol {
   font-size: 20px;
 }
+
+.fundraisingList {
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 20px 15px 15px 15px;
+  margin: 0px 5px 20px 5px;
+}
+
+#fundImg {
+  width: 100%;
+  height: 100%;
+}
+
+.fundraisingList h2 {
+  font-weight: bold;
+  color: var(--default-color);
+}
+
+.fundraisingList h2:hover, p:hover {
+  color: var(--accent-color);
+}
