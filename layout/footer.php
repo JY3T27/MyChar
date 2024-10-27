@@ -3,7 +3,7 @@ echo '<footer id="footer" class="footer mt-auto">
         <div class="container footer-top">
             <div class="row gy-4">
                 <div class="col-lg-5 col-md-12 footer-about">
-                    <a href="index.html" class="logo d-flex align-items-center">
+                    <a href="index.php" class="logo d-flex align-items-center">
                         <span class="sitename">MyChar</span>
                     </a>
                     <p>MyChar is a charity fundraising website designed to facilitate donations and allow charity organizations to share their news and activities they conducted. </p>
@@ -12,9 +12,9 @@ echo '<footer id="footer" class="footer mt-auto">
                     <h4>Useful Links</h4>
                     <ul>
                         <li><a href="index.php">Home</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Charity</a></li>
-                        <li><a href="#">Recent</a></li>
+                        <li><a href="index.php#about">About us</a></li>
+                        <li><a href="charitylist.php">Charity</a></li>
+                        <li><a href="fundraising.php">Fundraising</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-6 footer-contact">

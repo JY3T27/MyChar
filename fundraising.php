@@ -21,18 +21,20 @@ include 'config.php';
             <div class="container charityList-container col-md-8 pt-5">
                 <div class="row pt-5">
                     <div class="col section-header">
-                        <h2>Discover</h2>
-                        <p>Activites conducted by Charity or Sharing from Charity</p>
+                        <h2>Fundraising</h2>
+                        <p>Campaigns organized by the charities</p>
                     </div>
                 </div>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'charity'): ?>
                 <div class="row post-option">
-                    <div class="col">
-                        <h5>Feel free to post any news and activities</h5>
+                    <div class="col d-flex align-items-center">
+                        <h5>Commencing a new Fundraising Campaign</h5>
                     </div>
                     <div class="col-1">
-                        <a href="content_create.php"><i class="fa fa-chevron-right fs-2" aria-hidden="true"></i></a>
+                        <a href="fundraising_create.php"><i class="fa fa-chevron-right fs-2" aria-hidden="true"></i></a>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </section>
 

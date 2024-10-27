@@ -80,44 +80,35 @@ include 'config.php';
             $role = $_SESSION["role"];
             if ($action == "Upload") {
                 if (isset($_FILES['pic_input']) && $_FILES['pic_input']['error'] === UPLOAD_ERR_OK) {
-                    // Process the uploaded image
-                    $uploadDir = "assets/img/uploads/"; // Set your desired upload directory
+                    $uploadDir = "assets/img/uploads/";
                     $uploadFile = $uploadDir . basename($_FILES['pic_input']['name']);
-                    // Move the uploaded file to the specified directory
                     if (move_uploaded_file($_FILES['pic_input']['tmp_name'], $uploadFile)) {
-                        // Update the profile with the new image filename
                         $sqlImage = "UPDATE charity SET charity_profilepic = '$uploadFile' WHERE charity.user_id = '$userID'";
                         mysqli_query($conn, $sqlImage);
                         echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
-                    } else {
+                    } else
                         echo '<script>alert("Error in uploading");</script>';
-                    }
-                } else {
+                } else
                     echo '<script>alert("Picture is not chosen.");</script>';
-                }
-
-            } else {
+            } else
                 echo '<script>alert("Error2");</script>';
-            }
         }
         ?>
         <script>
             const imageInput = document.getElementById('pic_input');
             const imagePreview = document.getElementById('image-preview');
 
-            // Add an event listener to detect file selection
             imageInput.addEventListener('change', function() {
-                const file = imageInput.files[0]; // Get the selected file
+                const file = imageInput.files[0];
                 if (file) {
-                    // Create a URL for the file and set it as the src of the image preview
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        imagePreview.src = e.target.result; // Set the image source to the uploaded file// Show the image preview
+                        imagePreview.src = e.target.result;
                     };
-                    reader.readAsDataURL(file); // Read the file as a data URL (base64 encoded)
+                    reader.readAsDataURL(file); 
                 }
             });
-
+            
             function goBack() {
                 window.history.back();
             }
