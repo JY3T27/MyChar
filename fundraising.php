@@ -35,14 +35,28 @@ include 'config.php';
                         </div>
                     </div>
                 <?php endif; ?>
-                <div class="row fundraisingList">
-                    <div class="col-4">
-                        <img src="assets\img\sample-content.png" alt="Picture for Fundraising" id="fundImg" class="image-fluid image-fundraising">
-                    </div>
-                    <div class="col align-self-center">
-                        <h2>TestingFundraising1</h2>
-                        <p>Target: RM8888.88</p>
-                    </div>
+                    <?php
+                    $sql = "SELECT fundraising_id, fundraising_title, fundraising_target, fundraising_image FROM fundraising";
+                    $result = mysqli_query($conn, $sql);
+                    if ($result) {
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<div class="row fundraisingList" onclick="window.location.href=\'fundraising_details.php?id='. $row["fundraising_id"] . '\'">
+                                        <div class="col-4">';
+                                if (isset($row["fundraising_image"]) && !empty($row["fundraising_image"])) 
+                                    echo '<img src="' . $row["fundraising_image"] . '" alt="Picture for Fundraising" id="fundImg" class="image-fluid image-fundraising">';
+                                else
+                                    echo '<img src="assets\img\sample-content.png" alt="Picture for Fundraising" id="fundImg" class="image-fluid image-fundraising">';
+                                echo '</div><div class="col align-self-center">
+                                            <h2>' . $row["fundraising_title"] . '</h2>
+                                            <p>Target: RM ' . $row["fundraising_target"] . '</p>
+                                        </div></div>';   
+                            }
+                        }
+                    } else {
+                        echo '<div class="row fundraisingList"><h2>Error: ' . mysqli_error($conn) . '</h2></div>';
+                    }
+                    ?>
                 </div>
             </div>
         </section>
