@@ -1108,3 +1108,21 @@ p {
 .fundCard p {
   padding-left: 3%;
 }
+
+.fundCard {
+  min-height: 400px;
+}
+
+.fundCard .card-header {
+  background-color: var(--default-color)
+}
+
+.fundCard a {
+  color: var(--accent-color);
+  font-size: 20px;
+  font-weight: 450;
+}
+
+.fundCard a:hover, a:active {
+  color: var(--accent-color);
+}

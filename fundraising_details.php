@@ -18,11 +18,9 @@ include 'config.php';
     <?php
     include 'layout/nav.php';
 
-    $userID = $_SESSION["UID"];
-    $role = $_SESSION["role"];
     if (isset($_GET["id"]) && !empty($_GET["id"])) {
         $sql = 'SELECT * FROM fundraising 
-                INNER JOIN charity ON fundraising.charity_id = charity.charity_id 
+                INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
                 WHERE fundraising_id = ' . $_GET["id"];
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
@@ -34,6 +32,7 @@ include 'config.php';
         $target = $row["fundraising_target"];
         $status = $row["fundraising_status"];
     }
+
     ?>
     <main class="main">
         <section class="fundDetails section">
@@ -76,27 +75,68 @@ include 'config.php';
                             </div>
                             <div class="card-body">
                                 <div class="tab-content" id="card-tabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="tab-home">
-                                        <h5 class="card-title">Description</h5>
-                                        <p class="card-text"><?= $desc ?></p>
-                                        <h5 class="card-title">Date created</h5>
-                                        <p class="card-text"><?= $date ?></p>
-                                        <h5 class="card-title">Target of the Fund</h5>
-                                        <p class="card-text">RM <?= $target ?></p>
+                                    <div class="fundCard-body tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="tab-home">
+                                        <h5>Description</h5>
+                                        <p><?= $desc ?></p>
+                                        <h5>Date created</h5>
+                                        <p><?= $date ?></p>
                                     </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="tab-profile">
-                                        <p class="card-text">Content for Profile tab.</p>
+                                    <div class="fundCard-body tab-pane fade" id="profile" role="tabpanel" aria-labelledby="tab-profile">
+                                        <?php
+                                        $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $_GET["id"];
+                                        $result = mysqli_query($conn, $sql);
+                                        if ($result) {
+                                            if (mysqli_num_rows($result) > 0) {
+                                                $numrow = 1;
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    echo '  <h5>Update(' . $numrow . ')</h5>
+                                                            <p>' . $row['update_desc'] . '</p>
+                                                            <h5>Date updated</h5>
+                                                            <p>' . $row['update_date'] . '</p><hr>';
+                                                    $numrow++;
+                                                }
+                                            } else {
+                                                echo "There is no update about the fundraising";
+                                            }
+                                        } else {
+                                            echo "Error: " . mysqli_error($conn);
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-
+                        <div class="card fundCard">
+                            <div class="card-body">
+                                <div class="fundCard-body tab-pane fade" id="profile" role="tabpanel" aria-labelledby="tab-profile">
+                                    <?php
+                                    $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $_GET["id"];
+                                    $result = mysqli_query($conn, $sql);
+                                    if ($result) {
+                                        if (mysqli_num_rows($result) > 0) {
+                                            $numrow = 1;
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo '  <h5>Update(' . $numrow . ')</h5>
+                                                            <p>' . $row['update_desc'] . '</p>
+                                                            <h5>Date updated</h5>
+                                                            <p>' . $row['update_date'] . '</p><hr>';
+                                                $numrow++;
+                                            }
+                                        } else {
+                                            echo "There is no update about the fundraising";
+                                        }
+                                    } else {
+                                        echo "Error: " . mysqli_error($conn);
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </section>
 
         <?php
