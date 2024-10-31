@@ -17,11 +17,11 @@ include 'config.php';
 <body class="index-page">
     <?php
     include 'layout/nav.php';
-
-    if (isset($_GET["id"]) && !empty($_GET["id"])) {
+    $fundID = $_GET["id"];
+    if (isset($fundID) && !empty($fundID)) {
         $sql = 'SELECT * FROM fundraising 
                 INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
-                WHERE fundraising_id = ' . $_GET["id"];
+                WHERE fundraising_id = ' . $fundID;
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
         $charity = $row["charity_name"];
@@ -61,7 +61,7 @@ include 'config.php';
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 pb-5">
                         <div class="card fundCard">
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs" id="card-tab" role="tablist">
@@ -107,30 +107,13 @@ include 'config.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card fundCard">
+                    <div class="col-md-6 pb-5">
+                        <div class="card fundCard-money">
                             <div class="card-body">
-                                <div class="fundCard-body tab-pane fade" id="profile" role="tabpanel" aria-labelledby="tab-profile">
-                                    <?php
-                                    $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $_GET["id"];
-                                    $result = mysqli_query($conn, $sql);
-                                    if ($result) {
-                                        if (mysqli_num_rows($result) > 0) {
-                                            $numrow = 1;
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                                echo '  <h5>Update(' . $numrow . ')</h5>
-                                                            <p>' . $row['update_desc'] . '</p>
-                                                            <h5>Date updated</h5>
-                                                            <p>' . $row['update_date'] . '</p><hr>';
-                                                $numrow++;
-                                            }
-                                        } else {
-                                            echo "There is no update about the fundraising";
-                                        }
-                                    } else {
-                                        echo "Error: " . mysqli_error($conn);
-                                    }
-                                    ?>
+                                <h2>Target of the fund</h2>
+                                <h1>RM <?= $target ?></h1>
+                                <div class="row">
+                                <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>

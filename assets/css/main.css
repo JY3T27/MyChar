@@ -18,15 +18,8 @@
   --box-hover-color: #8cd58d;
   --card-hover-color: #a1dda0;
   --dark-accent-color: #2d6631;
+  --card-light-color: #daf2d8;
   scroll-behavior: smooth;
-}
-
-.dark-background {
-  --background-color: #060606;
-  --default-color: #ffffff;
-  --heading-color: #ffffff;
-  --surface-color: #252525;
-  --contrast-color: #ffffff;
 }
 
 /*--------------------------------------------------------------
@@ -1118,7 +1111,7 @@ p {
 }
 
 .fundCard a {
-  color: var(--accent-color);
+  color: var(--card-hover-color);
   font-size: 20px;
   font-weight: 450;
 }
@@ -1126,3 +1119,41 @@ p {
 .fundCard a:hover, a:active {
   color: var(--accent-color);
 }
+
+.fundCard-money {
+  background-color: var(--card-light-color);
+  min-height: 400px;
+  box-shadow: 4px 4px 4px rgba(14, 46, 80, 0.5);
+  border: 1px solid rgba(14, 46, 80, 0.5);
+  align-items: center;
+  padding: 10%;
+}
+
+.fundCard-money h2 {
+  font-size: 40px;
+  color: var(--default-color);
+}
+
+.fundCard-money h1 {
+  font-size: 50px;
+  font-family: var(--default-font);
+  color: var(--default-color);
+}
+
+.fundCard-money a {
+  text-align: center;
+  background-color: var(--default-color);
+  color: var(--background-color);
+  border-radius: 50px;
+  padding: 10px 20px 10px 20px;
+  width: 60%;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.fundCard-money .row {
+  margin: 35px;
+  display: flex; 
+  justify-content: center;
+}
+
