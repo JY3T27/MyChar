@@ -18,6 +18,7 @@ include 'config.php';
     <?php
     include 'layout/nav.php';
     $fundID = $_GET["id"];
+    $_SESSION['donatingID'] = $fundID;
     if (isset($fundID) && !empty($fundID)) {
         $sql = 'SELECT * FROM fundraising 
                 INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
@@ -113,7 +114,7 @@ include 'config.php';
                                 <h2>Target of the fund</h2>
                                 <h1>RM <?= $target ?></h1>
                                 <div class="row">
-                                <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
+                                    <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>

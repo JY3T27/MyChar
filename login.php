@@ -7,8 +7,9 @@ include 'config.php';
 
 <head>
     <?php
-    include 'layout/header.php'
+    include 'layout/header.php';
     ?>
+
     <script>
         function passwordbox() {
             alert('Email and Password are incorrect.');
@@ -74,11 +75,20 @@ include 'config.php';
                     $_SESSION["role"] = $row["user_role"];
                     //set logged in time
                     $_SESSION['loggedin_time'] = time();
-                    if ($row["user_role"] == 'admin')
-                        echo "<script> location.href='admin_dashboard.php'; </script>";
-                    else
-                        echo "<script> location.href='index.php'; </script>";
-                    exit;
+                    if ($_SESSION["role"] == 'admin') {
+                        echo '<script>window.location.href = "admin_dashboard.php";</script>';
+                        exit();
+                    } else {
+                        if (isset($_SESSION['donating'])) {
+                            $redirect_url = $_SESSION['donating'];
+                            unset($_SESSION['donating']);
+                            echo '<script>window.location.href = "' . $redirect_url . '";</script>';
+                            exit();
+                        }
+                        // Default redirection if no redirect URL is set
+                        echo '<script>window.location.href = "index.php";</script>';
+                        exit();
+                    }
                 } else {
                     echo '<script>passwordbox();</script>';
                 }

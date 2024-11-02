@@ -22,6 +22,14 @@
   scroll-behavior: smooth;
 }
 
+.dark-background {
+  --background-color: #060606;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --surface-color: #252525;
+  --contrast-color: #ffffff;
+}
+
 /*--------------------------------------------------------------
 # General Styling & Shared Classes
 --------------------------------------------------------------*/
@@ -851,7 +859,7 @@ p {
 .profile-Editbtn {
   color: var(--contrast-color);
   background: var(--default-color);
-  font-size: 14px;
+  font-size: 20px;
   padding: 8px 20px;
   margin: 10px;
   border-radius: 50px;
@@ -863,6 +871,7 @@ p {
 .profile-Editbtn:hover {
   color: var(--contrast-color);
   background: var(--accent-color);
+  border: 1px solid var(--accent-color);
 }
 
 #updateBtn {
@@ -876,7 +885,7 @@ p {
 .profile-Uploadbtn {
   color: var(--contrast-color);
   background: var(--default-color);
-  font-size: 14px;
+  font-size: 20px;
   padding: 8px 20px;
   margin: 10px;
   border-radius: 25px;
@@ -967,7 +976,7 @@ p {
 }
 
 #feedbackbtn {
-  width: 100px;
+  width: 150px;
 }
 
 .stars {
@@ -1157,3 +1166,47 @@ p {
   justify-content: center;
 }
 
+/*--------------------------------------------------------------
+# Donate Section
+--------------------------------------------------------------*/
+.donateCard .card {
+  width: 70%;
+}
+
+.donateCard .card label {
+  font-size: x-large;
+}
+
+.radio-container {
+  position: relative;
+  padding: 20px 30px 20px 30px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.radio-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.radio-container label[for='tng'], 
+.radio-container label[for='fpx'] {
+  order: 1;
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+.radio-container input[type="radio"] {
+  order: 2;
+  accent-color: var(--default-color); 
+  height: 20px;
+  width: 20px;
+}
