@@ -15,6 +15,14 @@ if (!isset($_SESSION['UID'])) {
     <?php
     include 'layout/header.php';
     ?>
+    <script>
+        function payment_confirm() {
+            if (!confirm("Have you done the payment?")) {
+                alert("Please make the payment.");
+                event.preventDefault();
+            }
+        }
+    </script>
 </head>
 
 <body class="index-page">
@@ -47,7 +55,7 @@ if (!isset($_SESSION['UID'])) {
                         <h2 class="text-start">You are supporting <strong><?= $title ?></strong>.</h2>
                     </div>
                     <div class="row text-start px-5">
-                        <p>Organized by <strong><?= $charity?></strong>. Started from <?= $date?>.</p>
+                        <p>Organized by <strong><?= $charity ?></strong>. Started from <?= $date ?>.</p>
                     </div>
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
                         <div class="row mt-3" style="margin-left: 10%;">
@@ -67,16 +75,16 @@ if (!isset($_SESSION['UID'])) {
                         <div class="row justify-content-center">
                             <label for="tng" class="col-6 radio-container">
                                 <h5>TNG (E-wallet)</h5>
-                                <input type="radio" id="tng" name="payment-method" value="tng">
+                                <input type="radio" id="tng" name="payment-method" value="Touch n Go">
                             </label>
                             <label for="fpx" class="col-6 radio-container">
                                 <h5>FPX (Credit Card)</h5>
-                                <input type="radio" id="fpx" name="payment-method" value="fpx">
+                                <input type="radio" id="fpx" name="payment-method" value="FPX ">
                             </label>
                         </div>
                         <div class="row justify-content-center my-3">
                             <div class="col-auto">
-                                <button type="submit" value="Upload" class="btn profile-Editbtn" id="feedbackbtn">Donate</button>
+                                <button type="submit" value="Upload" class="btn profile-Editbtn" id="feedbackbtn" onclick="payment_confirm()">Donate</button>
                             </div>
                         </div>
                     </form>
@@ -91,17 +99,17 @@ if (!isset($_SESSION['UID'])) {
             $method = $_POST['payment-method'];
             $uid = $_SESSION['UID'];
             $sql = "INSERT INTO donation (donation_id, donor_id, fundraising_id, donation_amount, donation_method, donation_date) 
-                    VALUES ('', $uid, $fundID, $amount, $method, CURRENT_TIMESTAMP)";
+                    VALUES ('', '$uid', '$fundID', '$amount', '$method', CURRENT_TIMESTAMP)";
             if (mysqli_query($conn, $sql)) {
-                echo '<script>alert("Register Successfully. "); window.location.href = "login.php"</script>';
+                $_SESSION['successID'] = mysqli_insert_id($conn);
+                unset($_SESSION['donatingID']);
+                echo '<script>window.location.href = "payment_success.php";</script>';
             } else {
-                echo '<script>alert("Error");</script>';
+                echo '<script>alert("Error in processing donation.");</script>';
             }
-            
         }
         ?>
     </main>
-
 </body>
 
 </html>
