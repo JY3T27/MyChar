@@ -67,7 +67,7 @@ if (isset($_SESSION["UID"])) {
                             <li><a href="index.php#about">About</a></li>
                             <li><a href="charitylist.php">Charity</a></li>
                             <li><a href="fundraising.php">Fundraising</a></li>
-                            <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <li class="dropdown"><a href="#"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="profile.php">Profile</a></li>
                                     <li><a href="admin_dashboard.php">Dashboard</a></li>

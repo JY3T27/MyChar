@@ -9,15 +9,6 @@ include 'config.php';
     <?php
     include 'layout/header.php';
     ?>
-    <script>
-        function confirmationDlt() {
-            if (confirm("Are you sure you want to delete your account?")) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
 </head>
 
 <body class="index-page">
@@ -50,13 +41,13 @@ include 'config.php';
                                 </div>
                                 <div class="profile-btn col">
                                     <?php if ($status == '1'): ?>
-                                        <button type="submit" id="togglePassword" value="changeStatisus" class="btn shadow-none bg-transparent border-0">
+                                        <button type="submit" id="togglePassword" name="action" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
                                             <i class="fa fa-check-square-o" aria-hidden="true"></i></button>
                                     <?php else: ?>
-                                        <button type="submit" id="togglePassword" value="changeStatisus" onclick="return confirm('Confirm done reviewing this feedback?')" class="btn shadow-none bg-transparent border-0">
+                                        <button type="submit" id="togglePassword" name="action" value="changeDone" onclick="return confirm('Confirm done reviewing this feedback?')" class="btn shadow-none bg-transparent border-0">
                                             <i class="fa fa-square-o" aria-hidden="true"></i></button>
                                     <?php endif; ?>
-                                    <button type="submit" id="togglePassword" onclick="return confirm('Confirm delete account?')" name="action" value="Delete" class="btn shadow-none bg-transparent border-0">
+                                    <button type="submit" id="togglePassword" name="action" value="Delete" onclick="return confirm('Confirm delete feedback?')" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -105,16 +96,6 @@ include 'config.php';
                                                 <input id="feedback_status" type="text" class="form-control" name="feedback_status" value="<?= $status ?>" disabled>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="row editBtn">
-                                                    <button type="submit" value="Update" id="updateBtn" class="profile-Editbtn col" name="action">Update</button>
-                                                    <button type="reset" value="Reset" id="resetBtn" class="profile-Editbtn col">Reset</button>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -127,49 +108,30 @@ include 'config.php';
         include 'layout/footer.php';
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $action = $_POST["action"];
-            $userID = $_SESSION["UID"];
-            $role = $_SESSION["role"];
-            if ($action == "Update") {
-                if ($role == 'donor') {
-                    $edited_name = $_POST['profile_name'];
-                    $sql = "UPDATE donor SET donor_name = '$edited_name' WHERE donor.user_id = '$userID'";
-                    if (mysqli_query($conn, $sql)) {
-                        echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
-                    } else {
-                        echo '<script>alert("Error");</script>';
-                    }
-                } elseif ($role == 'charity') {
-                    $edited_name = $_POST['profile_name'];
-                    $edited_phone = $_POST['profile_phone'];
-                    $edited_email = $_POST['profile_contactEmail'];
-                    $edited_address = $_POST['profile_address'];
-                    $edited_state = $_POST['profile_state'];
-                    $edited_URL = $_POST['profile_URL'];
-                    $edited_code = $_POST['profile_code'];
-                    $edited_desc = $_POST['profile_desc'];
-                    $sql = "UPDATE charity SET charity_name = '$edited_name', charity_phoneNo = '$edited_phone', charity_contactEmail = '$edited_email', 
-                            charity_address = '$edited_address', charity_state = '$edited_state', charity_websiteURL = '$edited_URL', 
-                            charity_code = '$edited_code', charity_desc = '$edited_desc'
-                            WHERE charity.user_id = '$userID'";
-                    if (mysqli_query($conn, $sql)) {
-                        echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
-                    } else {
-                        echo '<script>alert("Error");</script>';
-                    }
+            //$feedbackID = $_GET['id'];
+            if ($action == "changeNotDone") {
+                $sql = "UPDATE feedback SET feedback_status = '0' WHERE feedback_id = '$feedbackID'";
+                if (mysqli_query($conn, $sql)) {
+                    echo '<script>window.location.href = "feedback_details.php?id=' . $feedbackID . '</script>';
                 } else {
-                    echo '<script>alert("Error");</script>';
+                    echo '<script>alert("Error in changing status.");</script>';
+                }
+            } elseif ($action == "changeDone") {
+                $sql = "UPDATE feedback SET feedback_status = '1' WHERE feedback_id = '$feedbackID'";
+                if (mysqli_query($conn, $sql)) {
+                    echo '<script>window.location.href = "feedback_details.php?id=' . $feedbackID . '</script>';
+                } else {
+                    echo '<script>alert("Error in changing status.");</script>';
                 }
             } elseif ($action == "Delete") {
-                $sql = "DELETE FROM users WHERE users.user_id = '$userID'";
+                $sql = "DELETE FROM feedback WHERE feedback_id = '$feedbackID'";
                 if (mysqli_query($conn, $sql)) {
-                    echo '<script>alert("Delete Successfully."); window.location.href = "logout.php";</script>';
+                    echo '<script>alert("Delete Successfully."); window.location.href = "admin_dashboard.php";</script>';
                 } else {
-                    echo '<script>alert("Error");</script>';
+                    echo '<script>alert("Error in deleting.");</script>';
                 }
-            } elseif ($action == "ChangePP") {
-                echo '<script>window.location.href = "profilePic.php";</script>';
             } else {
-                echo '<script>alert("Error");</script>';
+                echo '<script>alert("Error123.");</script>';
             }
         }
         ?>
