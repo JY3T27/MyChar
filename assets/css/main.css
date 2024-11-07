@@ -726,10 +726,15 @@ p {
   color: var(--contrast-color);
 }
 
-.login-container input:focus {
+.login-container input:focus, 
+.login-container select:focus {
   border-color: var(--box-hover-color);
   box-shadow: 0 0 5px var(--box-hover-color); /* Optional: Add a red shadow */
   outline: none; /* Remove default browser outline */
+}
+
+.login-container option:hover {
+  background-color: var(--box-hover-color);
 }
 
 .login-btn {
@@ -1019,7 +1024,15 @@ p {
 }
 
 #tickbox {
-  text-align: center; 
+  text-align: center;
+  justify-content: center;
+}
+
+#tickbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;    
+  border: 2px solid var(--accent-color);       
+  border-radius: 4px;
 }
 
 #admin-graph {

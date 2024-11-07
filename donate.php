@@ -40,6 +40,14 @@ if (!isset($_SESSION['UID'])) {
         $date = $row["fundraising_createDate"];
         $target = $row["fundraising_target"];
     }
+    $sql = "SELECT donor_id FROM donor WHERE donor.user_id = '$userID' LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        $donor_id = $row['donor_id'];
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
     ?>
     <main class="main">
         <section class="donateCard section">
@@ -99,7 +107,7 @@ if (!isset($_SESSION['UID'])) {
             $method = $_POST['payment-method'];
             $uid = $_SESSION['UID'];
             $sql = "INSERT INTO donation (donation_id, donor_id, fundraising_id, donation_amount, donation_method, donation_date) 
-                    VALUES ('', '$uid', '$fundID', '$amount', '$method', CURRENT_TIMESTAMP)";
+                    VALUES ('', '$donor_id', '$fundID', '$amount', '$method', CURRENT_TIMESTAMP)";
             if (mysqli_query($conn, $sql)) {
                 $_SESSION['successID'] = mysqli_insert_id($conn);
                 unset($_SESSION['donatingID']);

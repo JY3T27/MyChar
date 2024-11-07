@@ -134,7 +134,7 @@ include 'config.php';
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" .  $numrow . "</td><td>" . $row["feedback_title"] . "</td><td>" . $row["feedback_date"] . "</td>";
                                     if ($row['feedback_status'] == 1)
-                                        echo '<td><input type="checkbox" checked disabled></td>';
+                                        echo '<td id="tickbox"><input type="checkbox" checked disabled></td>';
                                     else
                                         echo '<td id="tickbox"><input type="checkbox" disabled></td>';
                                     echo '<td> <a href="feedback_details.php?id=' . $row["feedback_id"] . '">View</a></td>';
@@ -169,10 +169,10 @@ include 'config.php';
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" .  $numrow . "</td><td>" . $row["report_title"] . "</td><td>" . $row["report_date"] . "</td>";
                                     if ($row['report_status'] == 1)
-                                        echo '<td><input type="checkbox" checked disabled></td>';
+                                        echo '<td id="tickbox"><input type="checkbox" checked disabled></td>';
                                     else
                                         echo '<td id="tickbox"><input type="checkbox" disabled></td>';
-                                    echo '<td> <a href="feedback_details.php?id=' . $row["feedback_id"] . '">View</a></td>';
+                                    echo '<td> <a href="report_details.php?id=' . $row["report_id"] . '">View</a></td>';
                                     echo "</tr>" . "\n\t\t";
                                     $numrow++;
                                 }

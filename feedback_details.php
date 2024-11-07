@@ -41,13 +41,13 @@ include 'config.php';
                                 </div>
                                 <div class="profile-btn col">
                                     <?php if ($status == '1'): ?>
-                                        <button type="submit" id="togglePassword" name="action" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+                                        <button type="submit" id="togglePassword" name="feedbackAction" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
+                                            <i class="fa fa-check-square-o fs-2" aria-hidden="true"></i></button>
                                     <?php else: ?>
-                                        <button type="submit" id="togglePassword" name="action" value="changeDone" onclick="return confirm('Confirm done reviewing this feedback?')" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-square-o" aria-hidden="true"></i></button>
+                                        <button type="submit" id="togglePassword" name="feedbackAction" value="changeDone" onclick="return confirm('Confirm done reviewing this feedback?')" class="btn shadow-none bg-transparent border-0">
+                                            <i class="fa fa-square-o fs-2" aria-hidden="true"></i></button>
                                     <?php endif; ?>
-                                    <button type="submit" id="togglePassword" name="action" value="Delete" onclick="return confirm('Confirm delete feedback?')" class="btn shadow-none bg-transparent border-0">
+                                    <button type="submit" id="togglePassword" name="feedbackAction" value="Delete" onclick="return confirm('Confirm delete feedback?')" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -57,7 +57,8 @@ include 'config.php';
                                         <div class="row mb-3">
                                             <label for="feedback_id" class="col-md-4 col-form-label text-md-end">Feedback ID</label>
                                             <div class="col-md-6">
-                                                <input id="feedback_id" type="text" class="form-control" name="feedback_id" value="<?= $feedbackID ?>" disabled>
+                                                <input id="feedback_id" type="text" class="form-control" value="<?= $feedbackID ?>" disabled>
+                                                <input id="feedback_id" type="text" name="feedback_id" value="<?= $_GET['id'] ?>" hidden>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -107,32 +108,36 @@ include 'config.php';
         <?php
         include 'layout/footer.php';
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $action = $_POST["action"];
-            //$feedbackID = $_GET['id'];
-            if ($action == "changeNotDone") {
-                $sql = "UPDATE feedback SET feedback_status = '0' WHERE feedback_id = '$feedbackID'";
-                if (mysqli_query($conn, $sql)) {
-                    echo '<script>window.location.href = "feedback_details.php?id=' . $feedbackID . '</script>';
+            $action = $_POST["feedbackAction"];
+            $feedbackID = $_POST["feedback_id"];
+            if (isset($action)) {
+                if ($action == "changeNotDone") {
+                    $sql = "UPDATE feedback SET feedback_status = '0' WHERE feedback.feedback_id = '$feedbackID'";
+                    if (mysqli_query($conn, $sql)) {
+                        echo '<script>window.location.href = "admin_dashboard.php";</script>';
+                    } else {
+                        echo '<script>alert("Error in changing status.");</script>';
+                    }
+                } elseif ($action == "changeDone") {
+                    $sql = "UPDATE feedback SET feedback_status = '1' WHERE feedback.feedback_id = '$feedbackID'";
+                    if (mysqli_query($conn, $sql)) {
+                        echo '<script>window.location.href = "admin_dashboard.php";</script>';
+                    } else {
+                        echo '<script>alert("Error in changing status.");</script>';
+                    }
+                } elseif ($action == "Delete") {
+                    $sql = "DELETE FROM feedback WHERE feedback.feedback_id = '$feedbackID'";
+                    if (mysqli_query($conn, $sql)) {
+                        echo '<script>alert("Delete Successfully."); window.location.href = "admin_dashboard.php";</script>';
+                    } else {
+                        echo '<script>alert("Error in deleting.");</script>';
+                    }
                 } else {
-                    echo '<script>alert("Error in changing status.");</script>';
-                }
-            } elseif ($action == "changeDone") {
-                $sql = "UPDATE feedback SET feedback_status = '1' WHERE feedback_id = '$feedbackID'";
-                if (mysqli_query($conn, $sql)) {
-                    echo '<script>window.location.href = "feedback_details.php?id=' . $feedbackID . '</script>';
-                } else {
-                    echo '<script>alert("Error in changing status.");</script>';
-                }
-            } elseif ($action == "Delete") {
-                $sql = "DELETE FROM feedback WHERE feedback_id = '$feedbackID'";
-                if (mysqli_query($conn, $sql)) {
-                    echo '<script>alert("Delete Successfully."); window.location.href = "admin_dashboard.php";</script>';
-                } else {
-                    echo '<script>alert("Error in deleting.");</script>';
+                    echo '<script>alert("Error123.");</script>';
                 }
             } else {
-                echo '<script>alert("Error123.");</script>';
-            }
+                echo '<script>alert("Error cannot find action.");</script>';
+            } 
         }
         ?>
     </main>
