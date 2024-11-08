@@ -22,12 +22,25 @@ include 'config.php';
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
         $donor = $row["donor_name"];
+        $donorID = $row["donor_id"];
         $title = $row["feedback_title"];
         $content = $row["feedback_content"];
         $rating = $row["feedback_rating"];
         $date = $row["feedback_date"];
         $status = $row["feedback_status"];
+        if ($status == '1') {
+            $statusText = "Done";
+        } else {
+            $statusText = "Incomplete";
+        }
     }
+
+    // $sql = 'SELECT * FROM donor 
+    //         INNER JOIN users ON donor.user_id = users.user_id 
+    //         WHERE donor_id = ' . $donorID;
+    // $result = mysqli_query($conn, $sql);
+    // $row = mysqli_fetch_assoc($result);
+    // $email = $row["user_email"];
     ?>
     <main class="main">
         <div class="container py-5">
@@ -47,6 +60,8 @@ include 'config.php';
                                         <button type="submit" id="togglePassword" name="feedbackAction" value="changeDone" onclick="return confirm('Confirm done reviewing this feedback?')" class="btn shadow-none bg-transparent border-0">
                                             <i class="fa fa-square-o fs-2" aria-hidden="true"></i></button>
                                     <?php endif; ?>
+                                    <!-- <button type="submit" id="togglePassword" name="feedbackAction" value="SentEmail" class="btn shadow-none bg-transparent border-0">
+                                        <i class="fa fa-envelope-o fs-2" aria-hidden="true"></i></button> -->
                                     <button type="submit" id="togglePassword" name="feedbackAction" value="Delete" onclick="return confirm('Confirm delete feedback?')" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
                                 </div>
@@ -89,12 +104,13 @@ include 'config.php';
                                             <label for="feedback_donor" class="col-md-4 col-form-label text-md-end">Sent by</label>
                                             <div class="col-md-6">
                                                 <input id="feedback_donor" type="text" class="form-control" name="feedback_donor" value="<?= $donor ?>" disabled>
+                                                <!-- <input id="feedback_email" type="text" class="form-control" name="feedback_email" value="<?= $ema ?>" hidden> -->
                                             </div>
                                         </div>
                                         <div class="row mb-3">
                                             <label for="feedback_status" class="col-md-4 col-form-label text-md-end">Status</label>
                                             <div class="col-md-6">
-                                                <input id="feedback_status" type="text" class="form-control" name="feedback_status" value="<?= $status ?>" disabled>
+                                                <input id="feedback_status" type="text" class="form-control" name="feedback_status" value="<?= $statusText ?>" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -110,6 +126,7 @@ include 'config.php';
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $action = $_POST["feedbackAction"];
             $feedbackID = $_POST["feedback_id"];
+            //$email = $_POST["feedback_email"];
             if (isset($action)) {
                 if ($action == "changeNotDone") {
                     $sql = "UPDATE feedback SET feedback_status = '0' WHERE feedback.feedback_id = '$feedbackID'";
@@ -125,7 +142,12 @@ include 'config.php';
                     } else {
                         echo '<script>alert("Error in changing status.");</script>';
                     }
-                } elseif ($action == "Delete") {
+                } /* elseif ($action == "SentEmail") {
+                    echo "<script>alert('$email');
+                                window.location.href = 'mailto:$email';
+                            </script>";
+                    exit();
+                }*/ elseif ($action == "Delete") {
                     $sql = "DELETE FROM feedback WHERE feedback.feedback_id = '$feedbackID'";
                     if (mysqli_query($conn, $sql)) {
                         echo '<script>alert("Delete Successfully."); window.location.href = "admin_dashboard.php";</script>';
@@ -137,7 +159,7 @@ include 'config.php';
                 }
             } else {
                 echo '<script>alert("Error cannot find action.");</script>';
-            } 
+            }
         }
         ?>
     </main>
