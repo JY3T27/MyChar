@@ -50,7 +50,7 @@ include 'config.php';
                                 <textarea rows="7" id="fundraising-desc" name="fundraising-desc" class="form-control" placeholder="Enter the descriptions"></textarea>
                             </div>
                             <div class="row px-5">
-                                <h4>Upload Pictures</h4>
+                                <h4>Upload Picture</h4>
                             </div>
                             <div class="row justify-content-start px-3 mb-4">
                                 <div class="col-8">

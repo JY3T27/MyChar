@@ -42,28 +42,23 @@ include 'config.php';
                     <div class="col-lg-6 content order-last  order-lg-first" data-aos="fade-up" data-aos-delay="100">
                         <h3>About Us</h3>
                         <p>
-                            Dolor iure expedita id fuga asperiores qui sunt consequatur minima. Quidem voluptas deleniti. Sit quia molestiae quia quas qui magnam itaque veritatis dolores. Corrupti totam ut eius incidunt reiciendis veritatis asperiores placeat.
-                        </p>
+                        MyChar is a charity fundraising website designed to facilitate secure and transparent donations. 
+                        It allows charitable organizations to share updates on their activities and connect with potential donors.</p>
                         <ul>
                             <li>
                                 <i class="bi bi-diagram-3"></i>
                                 <div>
-                                    <h5>Ullamco laboris nisi ut aliquip consequat</h5>
-                                    <p>Magni facilis facilis repellendus cum excepturi quaerat praesentium libre trade</p>
+                                    <h5>Mission</h5>
+                                    <p>To create a secure, efficient, and trustworthy platform for charitable giving, where donations are facilitated transparently, 
+                                        and charity organizations can reliably share their news and activities.</p>
                                 </div>
                             </li>
                             <li>
                                 <i class="bi bi-fullscreen-exit"></i>
                                 <div>
-                                    <h5>Magnam soluta odio exercitationem reprehenderi</h5>
-                                    <p>Quo totam dolorum at pariatur aut distinctio dolorum laudantium illo direna pasata redi</p>
-                                </div>
-                            </li>
-                            <li>
-                                <i class="bi bi-broadcast"></i>
-                                <div>
-                                    <h5>Voluptatem et qui exercitationem</h5>
-                                    <p>Et velit et eos maiores est tempora et quos dolorem autem tempora incidunt maxime veniam</p>
+                                    <h5>Aim</h5>
+                                    <p>to ensure the authenticity and transparency of charity organizations, 
+                                        build donor confidence, and contribute to a secure and accountable charitable ecosystem.</p>
                                 </div>
                             </li>
                         </ul>

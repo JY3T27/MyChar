@@ -28,6 +28,7 @@ if (!isset($_SESSION['UID'])) {
 <body class="index-page">
     <?php
     include 'layout/nav.php';
+    $userID = $_SESSION['UID'];
     $fundID = $_SESSION['donatingID'];
     if (isset($fundID) && !empty($fundID)) {
         $sql = 'SELECT * FROM fundraising 
