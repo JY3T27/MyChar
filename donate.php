@@ -20,7 +20,9 @@ if (!isset($_SESSION['UID'])) {
             if (!confirm("Have you done the payment?")) {
                 alert("Please make the payment.");
                 event.preventDefault();
+                return false;
             }
+            return true;
         }
     </script>
 </head>
@@ -66,7 +68,7 @@ if (!isset($_SESSION['UID'])) {
                     <div class="row text-start px-5">
                         <p>Organized by <strong><?= $charity ?></strong>. Started from <?= $date ?>.</p>
                     </div>
-                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data" onsubmit="return payment_confirm()">
                         <div class="row mt-3" style="margin-left: 10%;">
                             <h4>Donate Amount</h4>
                         </div>
@@ -84,7 +86,7 @@ if (!isset($_SESSION['UID'])) {
                         <div class="row justify-content-center">
                             <label for="tng" class="col-6 radio-container">
                                 <h5>TNG (E-wallet)</h5>
-                                <input type="radio" id="tng" name="payment-method" value="Touch n Go">
+                                <input type="radio" id="tng" name="payment-method" value="Touch n Go" required>
                             </label>
                             <label for="fpx" class="col-6 radio-container">
                                 <h5>FPX (Credit Card)</h5>
@@ -93,7 +95,7 @@ if (!isset($_SESSION['UID'])) {
                         </div>
                         <div class="row justify-content-center my-3">
                             <div class="col-auto">
-                                <button type="submit" value="Upload" class="btn profile-Editbtn" id="feedbackbtn" onclick="payment_confirm()">Donate</button>
+                                <button type="submit" value="Upload" class="btn profile-Editbtn" id="feedbackbtn">Donate</button>
                             </div>
                         </div>
                     </form>
