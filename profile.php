@@ -28,7 +28,7 @@ include 'config.php';
                 }
             } else {
                 document.getElementById("profile_name").disabled = true;
-                document.getElementById("updateBtn").style.display = "none";
+                document.getElementById("updateBtn").style.display = ":none";
                 document.getElementById("resetBtn").style.display = "none";
                 if (userRole == "charity") {
                     document.getElementById("profile_phone").disabled = true;

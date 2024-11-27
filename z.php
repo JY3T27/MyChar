@@ -1,56 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Checkbox with Colored Checkmark</title>
-    <style>
-        /* Hide the default checkbox */
-        .custom-checkbox input[type="checkbox"] {
-            display: none;
-        }
-
-        /* Style the custom checkbox container */
-        .custom-checkbox span {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            background-color: #ddd;
-            border: 2px solid #888;
-            border-radius: 3px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        /* Style the checkmark */
-        .custom-checkbox input[type="checkbox"]:checked + span::after {
-            content: "";
-            position: absolute;
-            left: 6px;
-            top: 2px;
-            width: 6px;
-            height: 12px;
-            border: solid #4CAF50; /* Color of the checkmark */
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-
-        /* Style when checkbox is disabled */
-        .custom-checkbox input[type="checkbox"]:disabled + span {
-            background-color: #f0f0f0;
-            border-color: #bbb;
-            cursor: not-allowed;
-        }
-        /* Style the disabled checkmark color */
-        .custom-checkbox input[type="checkbox"]:checked:disabled + span::after {
-            border-color: white; /* Gray color for disabled checkmark */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tables Side by Side</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <label class="custom-checkbox">
-        <input type="checkbox" checked disabled>
-        <span></span> I agree to the terms
-    </label>
+  <div class="container">
+    <div class="row">
+      <!-- First table -->
+      <div class="col-md-6 col-sm-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Column 1</th>
+              <th>Column 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data 1</td>
+              <td>Data 2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Second table -->
+      <div class="col-md-6 col-sm-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Column A</th>
+              <th>Column B</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Data A</td>
+              <td>Data B</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

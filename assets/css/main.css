@@ -1230,3 +1230,45 @@ p {
   box-shadow: 5px 5px 5px rgba(14, 46, 80, 0.5);
   text-align: center;
 }
+
+/*--------------------------------------------------------------
+# History Section
+--------------------------------------------------------------*/
+.history-container th, td {
+  height: 50px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.history-container th {
+  background-color: var(--default-color);
+  color: var(--background-color);
+  border: 1px solid var(--background-color);
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.history-container td {
+  border: 0px;
+}
+
+.history-container table {
+  border: 1px solid var(--default-color);
+}
+
+.history-container a {
+  color: var(--default-color);
+}
+
+.history-container a:hover {
+  color: var(--accent-color);
+}
+
+.history-container h4 {
+  color: var(--accent-color);
+}
+
+#title_col {
+  text-align: left;
+  padding-left: 3%;
+}

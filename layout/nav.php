@@ -43,6 +43,7 @@ if (isset($_SESSION["UID"])) {
                             <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a href="profile.php">Profile</a></li>
+                                    <li><a href="history_donor.php">History</a></li>
                                     <li><a href="feedback.php">Feedback</a></li>
                                     <li><a href="report.php">Report</a></li>
                                     <li><a href="logout.php" onClick="return confirm(\'Confirm log out?\')">Log Out</a></li>
