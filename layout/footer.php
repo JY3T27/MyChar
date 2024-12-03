@@ -1,4 +1,13 @@
-<?php 
+<?php
+$sql = "SELECT * FROM `admin` WHERE admin_id = '1' LIMIT 1";
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($result);
+$name = $row['admin_name'];
+$address1 = $row['website_address1'];
+$address2 = $row['website_address2'];
+$phone = $row['website_phoneNo'];
+$email = $row['website_email'];
+
 echo '<footer id="footer" class="footer mt-auto">
         <div class="container footer-top">
             <div class="row gy-4">
@@ -19,12 +28,11 @@ echo '<footer id="footer" class="footer mt-auto">
                 </div>
                 <div class="col-lg-2 col-6 footer-contact">
                     <h4>Contact Us</h4>
-                    <p>Universiti Malaysia Sabah</p>
-                    <p>Jalan UMS, </p>
-                    <p>88400 Kota Kinabalu</p>
-                    <p>Sabah</p>
-                    <p class="mt-4"><strong>Phone:</strong> <span>+6012 345 6789</span></p>
-                    <p><strong>Email:</strong> <span>mychar@iluv.ums.edu.my</span></p>
+                    <p>' . $name . '</p>
+                    <p>' . $address1 . '</p>
+                    <p>' . $address2 . '</p>
+                    <p class="mt-4"><strong>Phone:</strong> <span>' . $phone . '</span></p>
+                    <p><strong>Email:</strong> <span>' . $email . '</span></p>
                 </div>
             </div>
         </div>

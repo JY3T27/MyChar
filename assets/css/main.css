@@ -1273,3 +1273,14 @@ p {
   text-align: left;
   padding-left: 3%;
 }
+
+/*--------------------------------------------------------------
+# Charity Section (For Public to view)
+--------------------------------------------------------------*/
+#charitybtn {
+  font-size: 15px;
+}
+
+.charity-title {
+  background-color: rgb(69, 191, 85, 0.1);
+}

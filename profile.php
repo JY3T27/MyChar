@@ -25,10 +25,15 @@ include 'config.php';
                     document.getElementById("profile_URL").disabled = false;
                     document.getElementById("profile_code").disabled = false;
                     document.getElementById("profile_desc").disabled = false;
+                } else if (userRole == "admin") {
+                    document.getElementById("website_address1").disabled = false;
+                    document.getElementById("website_address2").disabled = false;
+                    document.getElementById("website_phone").disabled = false;
+                    document.getElementById("website_email").disabled = false;
                 }
             } else {
                 document.getElementById("profile_name").disabled = true;
-                document.getElementById("updateBtn").style.display = ":none";
+                document.getElementById("updateBtn").style.display = "none";
                 document.getElementById("resetBtn").style.display = "none";
                 if (userRole == "charity") {
                     document.getElementById("profile_phone").disabled = true;
@@ -38,6 +43,11 @@ include 'config.php';
                     document.getElementById("profile_URL").disabled = true;
                     document.getElementById("profile_code").disabled = true;
                     document.getElementById("profile_desc").disabled = true;
+                } else if (userRole == "admin") {
+                    document.getElementById("website_address1").disabled = true;
+                    document.getElementById("website_address2").disabled = true;
+                    document.getElementById("website_phone").disabled = true;
+                    document.getElementById("website_email").disabled = true;
                 }
             }
         }
@@ -95,14 +105,19 @@ include 'config.php';
             echo "Error: " . mysqli_error($conn);
         }
     } else if ($role == 'admin') {
-        $sql = "SELECT * FROM users WHERE user_role = '$role' LIMIT 1";
+        $sql = "SELECT * FROM users INNER JOIN admin ON users.user_id = admin.user_id
+                WHERE users.user_id = '$userID' LIMIT 1";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
-                $profile_name = "Super Admin";
+                $profile_name = $row["admin_name"];
                 $profile_email = $row['user_email'];
                 $profile_joinDate = $row['user_joinDate'];
+                $address1 = $row['website_address1'];
+                $address2 = $row['website_address2'];
+                $phone = $row['website_phoneNo'];
+                $email = $row['website_email'];
             }
         } else {
             echo "Error: " . mysqli_error($conn);
@@ -221,6 +236,31 @@ include 'config.php';
                                                     <input id="profile_desc" type="text" class="form-control" name="profile_desc" value="<?= $profile_desc ?>" disabled>
                                                 </div>
                                             </div>
+                                        <?php elseif ($role == 'admin'): ?>
+                                            <div class="row mb-3">
+                                                <label for="website_address1" class="col-md-4 col-form-label text-md-end">Address 1</label>
+                                                <div class="col-md-6">
+                                                    <input id="website_address1" type="text" class="form-control" name="website_address1" value="<?= $address1 ?>" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="website_address2" class="col-md-4 col-form-label text-md-end">Address 2</label>
+                                                <div class="col-md-6">
+                                                    <input id="website_address2" type="text" class="form-control" name="website_address2" value="<?= $address2 ?>" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="website_phone" class="col-md-4 col-form-label text-md-end">Phone No</label>
+                                                <div class="col-md-6">
+                                                    <input id="website_phone" type="text" class="form-control" name="website_phone" value="<?= $phone ?>" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="website_email" class="col-md-4 col-form-label text-md-end">Website Email</label>
+                                                <div class="col-md-6">
+                                                    <input id="website_email" type="text" class="form-control" name="website_email" value="<?= $email ?>" disabled>
+                                                </div>
+                                            </div>
                                         <?php endif; ?>
                                         <div class="row mb-3">
                                             <div class="col-md-4">
@@ -268,6 +308,20 @@ include 'config.php';
                             charity_address = '$edited_address', charity_state = '$edited_state', charity_websiteURL = '$edited_URL', 
                             charity_code = '$edited_code', charity_desc = '$edited_desc'
                             WHERE charity.user_id = '$userID'";
+                    if (mysqli_query($conn, $sql)) {
+                        echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
+                    } else {
+                        echo '<script>alert("Error");</script>';
+                    }
+                } elseif ($role == 'admin') {
+                    $edited_name = $_POST['profile_name'];
+                    $edited_address1 = $_POST['website_address1'];
+                    $edited_address2 = $_POST['website_address2'];
+                    $edited_phone = $_POST['website_phone'];
+                    $edited_email = $_POST['website_email'];
+                    $sql = "UPDATE admin SET admin_name = '$edited_name', website_phoneNo = '$edited_phone', website_email = '$edited_email', 
+                            website_address1 = '$edited_address1', website_address2 = '$edited_address2'   
+                            WHERE admin.user_id = '$userID'";
                     if (mysqli_query($conn, $sql)) {
                         echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
                     } else {
