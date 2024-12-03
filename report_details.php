@@ -44,12 +44,14 @@ include 'config.php';
                                     <h1>Report</h1>
                                 </div>
                                 <div class="profile-btn col">
-                                    <?php if ($status == '1'): ?>
-                                        <button type="submit" id="togglePassword" name="reportAction" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-check-square-o fs-2" aria-hidden="true"></i></button>
-                                    <?php else: ?>
-                                        <button type="submit" id="togglePassword" name="reportAction" value="changeDone" onclick="return confirm('Confirm done reviewing this report?')" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-square-o fs-2" aria-hidden="true"></i></button>
+                                    <?php if ($_SESSION["role"] == 'admin'): ?>
+                                        <?php if ($status == '1'): ?>
+                                            <button type="submit" id="togglePassword" name="reportAction" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
+                                                <i class="fa fa-check-square-o fs-2" aria-hidden="true"></i></button>
+                                        <?php else: ?>
+                                            <button type="submit" id="togglePassword" name="reportAction" value="changeDone" onclick="return confirm('Confirm done reviewing this report?')" class="btn shadow-none bg-transparent border-0">
+                                                <i class="fa fa-square-o fs-2" aria-hidden="true"></i></button>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                     <button type="submit" id="togglePassword" name="reportAction" value="Delete" onclick="return confirm('Confirm delete report?')" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
@@ -58,17 +60,19 @@ include 'config.php';
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="row mb-3">
-                                            <label for="report_id" class="col-md-4 col-form-label text-md-end">report ID</label>
-                                            <div class="col-md-6">
-                                                <input id="report_id" type="text" class="form-control" value="<?= $reportID ?>" disabled>
-                                                <input id="report_id" type="text" name="report_id" value="<?= $_GET['id'] ?>" hidden>
+                                        <?php if ($_SESSION["role"] == 'admin'): ?>
+                                            <div class="row mb-3">
+                                                <label for="report_id" class="col-md-4 col-form-label text-md-end">report ID</label>
+                                                <div class="col-md-6">
+                                                    <input id="report_id" type="text" class="form-control" value="<?= $reportID ?>" disabled>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php endif; ?>
                                         <div class="row mb-3">
                                             <label for="report_title" class="col-md-4 col-form-label text-md-end">Title</label>
                                             <div class="col-md-6">
                                                 <input id="report_title" type="email" class="form-control" name="report_title" value="<?= $title ?>" required disabled>
+                                                <input id="report_id" type="text" name="report_id" value="<?= $_GET['id'] ?>" hidden>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -131,11 +135,11 @@ include 'config.php';
                         echo '<script>alert("Error in deleting.");</script>';
                     }
                 } else {
-                    echo '<script>alert("Error123.");</script>';
+                    echo '<script>alert("Error executed the action.");</script>';
                 }
             } else {
                 echo '<script>alert("Error cannot find action.");</script>';
-            } 
+            }
         }
         ?>
     </main>

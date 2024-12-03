@@ -117,7 +117,7 @@ include 'config.php';
                 </div>
                 <div class="row px-5 pb-5">
                     <h3>Feedbacks & Reviews</h3>
-                    <table class="table">
+                    <table>
                         <tr>
                             <th width="10%">No</th>
                             <th>Title</th>

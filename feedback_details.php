@@ -53,15 +53,17 @@ include 'config.php';
                                     <h1>Feedback</h1>
                                 </div>
                                 <div class="profile-btn col">
-                                    <?php if ($status == '1'): ?>
-                                        <button type="submit" id="togglePassword" name="feedbackAction" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-check-square-o fs-2" aria-hidden="true"></i></button>
-                                    <?php else: ?>
-                                        <button type="submit" id="togglePassword" name="feedbackAction" value="changeDone" onclick="return confirm('Confirm done reviewing this feedback?')" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-square-o fs-2" aria-hidden="true"></i></button>
-                                    <?php endif; ?>
-                                    <!-- <button type="submit" id="togglePassword" name="feedbackAction" value="SentEmail" class="btn shadow-none bg-transparent border-0">
+                                    <?php if ($_SESSION["role"] == 'admin'): ?>
+                                        <?php if ($status == '1'): ?>
+                                            <button type="submit" id="togglePassword" name="feedbackAction" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
+                                                <i class="fa fa-check-square-o fs-2" aria-hidden="true"></i></button>
+                                        <?php else: ?>
+                                            <button type="submit" id="togglePassword" name="feedbackAction" value="changeDone" onclick="return confirm('Confirm done reviewing this feedback?')" class="btn shadow-none bg-transparent border-0">
+                                                <i class="fa fa-square-o fs-2" aria-hidden="true"></i></button>
+                                        <?php endif; ?>
+                                        <!-- <button type="submit" id="togglePassword" name="feedbackAction" value="SentEmail" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-envelope-o fs-2" aria-hidden="true"></i></button> -->
+                                    <?php endif; ?>
                                     <button type="submit" id="togglePassword" name="feedbackAction" value="Delete" onclick="return confirm('Confirm delete feedback?')" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
                                 </div>
@@ -69,17 +71,19 @@ include 'config.php';
                             <div class="container">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="row mb-3">
-                                            <label for="feedback_id" class="col-md-4 col-form-label text-md-end">Feedback ID</label>
-                                            <div class="col-md-6">
-                                                <input id="feedback_id" type="text" class="form-control" value="<?= $feedbackID ?>" disabled>
-                                                <input id="feedback_id" type="text" name="feedback_id" value="<?= $_GET['id'] ?>" hidden>
+                                        <?php if ($_SESSION["role"] == 'admin'): ?>
+                                            <div class="row mb-3">
+                                                <label for="feedback_id" class="col-md-4 col-form-label text-md-end">Feedback ID</label>
+                                                <div class="col-md-6">
+                                                    <input id="feedback_id" type="text" class="form-control" value="<?= $feedbackID ?>" disabled>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php endif; ?>
                                         <div class="row mb-3">
                                             <label for="feedback_title" class="col-md-4 col-form-label text-md-end">Title</label>
                                             <div class="col-md-6">
                                                 <input id="feedback_title" type="email" class="form-control" name="feedback_title" value="<?= $title ?>" required disabled>
+                                                <input id="feedback_id" type="text" name="feedback_id" value="<?= $_GET['id'] ?>" hidden>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -155,7 +159,7 @@ include 'config.php';
                         echo '<script>alert("Error in deleting.");</script>';
                     }
                 } else {
-                    echo '<script>alert("Error123.");</script>';
+                    echo '<script>alert("Error executed the action.");</script>';
                 }
             } else {
                 echo '<script>alert("Error cannot find action.");</script>';

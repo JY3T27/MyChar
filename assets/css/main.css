@@ -1015,6 +1015,7 @@ p {
   border: 1px solid var(--default-color);
   height: 50px;
   vertical-align: middle;
+  text-align: start;
 }
 
 .admin-container th {
@@ -1244,8 +1245,8 @@ p {
   background-color: var(--default-color);
   color: var(--background-color);
   border: 1px solid var(--background-color);
-  font-size: 20px;
-  font-weight: 200;
+  font-size: 25px;
+  font-weight: 600;
 }
 
 .history-container td {

@@ -67,23 +67,22 @@ include 'config.php';
                 </div>
                 <div class="row pb-5">
                     <div class="col-md-6 col-sm-12">
-                        <h3>Donation</h3>
+                        <h3>Feedback</h3>
                         <table class="table">
                             <tr>
                                 <th width="10%">No</th>
-                                <th>Fundraising Title</th>
+                                <th>Title</th>
                                 <th width="30%">Date</th>
                             </tr>
                             <?php
-                            $sql = "SELECT * FROM donation INNER JOIN fundraising ON donation.fundraising_id = fundraising.fundraising_id 
-                                WHERE donor_id = '$donorID'";
+                            $sql = "SELECT * FROM feedback WHERE donor_id = '$donorID'";
                             $result = mysqli_query($conn, $sql);
                             if ($result) {
                                 if (mysqli_num_rows($result) > 0) {
                                     $numrow = 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<tr><td>" .  $numrow . "</td>";
-                                        echo "<td id='title_col'> <a href='donation_details.php?id=" . $row["donation_id"] . "'>" . $row["fundraising_title"] . "</a></td><td>" . $row["donation_date"] . "</td>";
+                                        echo "<td id='title_col'> <a href='feedback_details.php?id=" . $row["feedback_id"] . "'>" . $row["feedback_title"] . "</a></td><td>" . $row["feedback_date"] . "</td>";
                                         echo "</tr>" . "\n\t\t";
                                         $numrow++;
                                     }
@@ -97,7 +96,7 @@ include 'config.php';
                         </table>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <h3>Donation</h3>
+                        <h3>Report</h3>
                         <table class="table">
                             <tr>
                                 <th width="10%">No</th>
@@ -105,15 +104,14 @@ include 'config.php';
                                 <th width="30%">Date</th>
                             </tr>
                             <?php
-                            $sql = "SELECT * FROM donation INNER JOIN fundraising ON donation.fundraising_id = fundraising.fundraising_id 
-                                WHERE donor_id = '$donorID'";
+                            $sql = "SELECT * FROM report WHERE user_id = '$userID'";
                             $result = mysqli_query($conn, $sql);
                             if ($result) {
                                 if (mysqli_num_rows($result) > 0) {
                                     $numrow = 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<tr><td>" .  $numrow . "</td>";
-                                        echo "<td id='title_col'> <a href='donation_details.php?id=" . $row["donation_id"] . "'>" . $row["fundraising_title"] . "</a></td><td>" . $row["donation_date"] . "</td>";
+                                        echo "<td id='title_col'> <a href='report_details.php?id=" . $row["report_id"] . "'>" . $row["report_title"] . "</a></td><td>" . $row["report_date"] . "</td>";
                                         echo "</tr>" . "\n\t\t";
                                         $numrow++;
                                     }
