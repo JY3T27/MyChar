@@ -15,7 +15,7 @@ include 'config.php';
     <?php
     include 'layout/nav.php';
     if (isset($_SESSION['successID']) && !empty($_SESSION['successID'])) {
-        $sql = 'SELECT donor.donor_name, fundraising.fundraising_title, donation.donation_amount, donation.donation_method, donation.donation_date 
+        $sql = 'SELECT donor.donor_name, fundraising.fundraising_title, donation.donation_amount, donation.donation_method, donation.donation_date, fundraising.fundraising_id
                 FROM donation 
                 INNER JOIN donor ON donation.donor_id = donor.donor_id
                 INNER JOIN fundraising ON donation.fundraising_id = fundraising.fundraising_id
@@ -27,8 +27,17 @@ include 'config.php';
         $amount = $row["donation_amount"];
         $date = $row["donation_date"];
         $method = $row["donation_method"];
+        $fundID = $row["fundraising_id"];
     } else {
         $donor = 'error';
+    }
+
+    $update_sql = "UPDATE fundraising SET fundraising_fund = ( 
+                   SELECT SUM(donation_amount) FROM donation WHERE fundraising_id ='$fundID'  ) 
+                   WHERE fundraising_id = '$fundID';";
+    $result = mysqli_query($conn, $update_sql);
+    if (!$result) {
+        echo "Error: " . mysqli_error($conn);
     }
     ?>
     <main class="main">

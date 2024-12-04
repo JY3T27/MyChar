@@ -1235,6 +1235,10 @@ p {
 /*--------------------------------------------------------------
 # History Section
 --------------------------------------------------------------*/
+.history-container table {
+  border: 1px solid var(--default-color);
+}
+
 .history-container th, td {
   height: 50px;
   vertical-align: middle;
@@ -1251,10 +1255,6 @@ p {
 
 .history-container td {
   border: 0px;
-}
-
-.history-container table {
-  border: 1px solid var(--default-color);
 }
 
 .history-container a {
@@ -1282,5 +1282,5 @@ p {
 }
 
 .charity-title {
-  background-color: rgb(69, 191, 85, 0.1);
+  background-color: rgba(69, 191, 85, 0.1);
 }
