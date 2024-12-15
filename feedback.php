@@ -15,14 +15,6 @@ include 'config.php';
     <?php
     include 'layout/nav.php';
     $userID = $_SESSION["UID"];
-    $sql = "SELECT donor_id FROM donor WHERE donor.user_id = '$userID' LIMIT 1";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
-        $donor_id = $row['donor_id'];
-    } else {
-        echo "Error: " . mysqli_error($conn);
-    }
     ?>
 
     <main class="main">
@@ -86,8 +78,8 @@ include 'config.php';
             $title = $_POST['feedback-title'];
             $content = $_POST['feedback-desc'];
             $rating = $_POST['rating'];
-            $sql = "INSERT INTO feedback (feedback_id, donor_id, feedback_title, feedback_content, feedback_date, feedback_rating) 
-                    VALUES('', '$donor_id', '$title', '$content', CURRENT_TIMESTAMP, '$rating')";
+            $sql = "INSERT INTO feedback (feedback_id, user_id, feedback_title, feedback_content, feedback_date, feedback_rating) 
+                    VALUES('', '$userID', '$title', '$content', CURRENT_TIMESTAMP, '$rating')";
             if (mysqli_query($conn, $sql)) {
                 echo '<script>alert("Sent Feedback Successfully. ");</script>';
             } else {

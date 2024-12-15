@@ -18,14 +18,14 @@ include 'config.php';
 
     <main class="main">
         <section id="charityList" class="charityList section">
-            <div class="container charityList-container col-md-8 pt-5">
+            <div class="container charityList-container col-md-8 py-5 mb-5">
                 <div class="row pt-5">
                     <div class="col section-header">
                         <h2>List of Charity</h2>
                         <p>Charities in Malaysia</p>
                     </div>
                 </div>
-                <div class="row justify-content-md-center">
+                <div class="row justify-content-md-center pb-5 mb-5">
                     <?php
                     $sql = "SELECT charity_id, charity_name, charity_state, charity_profilepic FROM charity";
                     $result = mysqli_query($conn, $sql);
@@ -50,9 +50,6 @@ include 'config.php';
                         echo "Error: " . mysqli_error($conn);
                     }
                     ?>
-                </div>
-                <div class="pb-5" id="endOfCharity">
-                    <p> <-----END-----> </p>
                 </div>
         </section>
 

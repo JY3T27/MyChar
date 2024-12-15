@@ -17,12 +17,13 @@ include 'config.php';
     $feedbackID = $_GET['id'];
     if (isset($feedbackID) && !empty($feedbackID)) {
         $sql = 'SELECT * FROM feedback
-                INNER JOIN donor ON feedback.donor_id = donor.donor_id   
+                INNER JOIN users ON feedback.user_id = users.user_id   
                 WHERE feedback_id = ' . $feedbackID;
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        $donor = $row["donor_name"];
-        $donorID = $row["donor_id"];
+        $owner_role = $row["user_role"];
+        $owner_ID = $row["user_id"];
+        $owner_email = $row["user_email"];
         $title = $row["feedback_title"];
         $content = $row["feedback_content"];
         $rating = $row["feedback_rating"];
@@ -33,14 +34,26 @@ include 'config.php';
         } else {
             $statusText = "Incomplete";
         }
+        if ($owner_role == "donor") {
+            $sql_donor = 'SELECT * FROM donor 
+                    INNER JOIN users ON donor.user_id = users.user_id 
+                    WHERE users.user_id = ' . $owner_ID;
+            $result = mysqli_query($conn, $sql_donor);
+            $row = mysqli_fetch_assoc($result);
+            $role_ID = $row["donor_id"];
+            $owner_name = $row["donor_name"];
+        } elseif ($owner_role == "charity") {
+            $sql_charity = 'SELECT * FROM users 
+                    INNER JOIN charity ON users.user_id = charity.user_id 
+                    WHERE users.user_id = ' . $owner_ID;
+            $result = mysqli_query($conn, $sql_charity);
+            $row = mysqli_fetch_assoc($result);
+            $role_ID = $row["charity_id"];
+            $owner_name = $row["charity_name"];
+        } else {
+            echo "Error Feedback owner role.";
+        }
     }
-
-    // $sql = 'SELECT * FROM donor 
-    //         INNER JOIN users ON donor.user_id = users.user_id 
-    //         WHERE donor_id = ' . $donorID;
-    // $result = mysqli_query($conn, $sql);
-    // $row = mysqli_fetch_assoc($result);
-    // $email = $row["user_email"];
     ?>
     <main class="main">
         <div class="container py-5">
@@ -107,8 +120,8 @@ include 'config.php';
                                         <div class="row mb-3">
                                             <label for="feedback_donor" class="col-md-4 col-form-label text-md-end">Sent by</label>
                                             <div class="col-md-6">
-                                                <input id="feedback_donor" type="text" class="form-control" name="feedback_donor" value="<?= $donor ?>" disabled>
-                                                <!-- <input id="feedback_email" type="text" class="form-control" name="feedback_email" value="<?= $ema ?>" hidden> -->
+                                                <input id="feedback_donor" type="text" class="form-control" name="feedback_donor" value="<?= $owner_name ?>" disabled>
+                                                <!-- <input id="feedback_email" type="text" class="form-control" name="feedback_email" value="<?= $owner_email ?>" hidden> -->
                                             </div>
                                         </div>
                                         <div class="row mb-3">

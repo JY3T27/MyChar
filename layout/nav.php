@@ -18,7 +18,8 @@ if (isset($_SESSION["UID"])) {
                                 <ul>
                                     <li><a href="profile.php">Profile</a></li>
                                     <li><a href="fundraising_charity.php">Campaigns</a></li>
-                                    <li><a href="report.php">Report</a></li>
+                                    <li><a href="history_charity.php">History</a></li>
+                                    <li><a href="feedback.php">Feedback</a></li>
                                     <li><a href="logout.php" onClick="return confirm(\'Confirm log out?\')">Log Out</a></li>
                                 </ul>
                             </li>

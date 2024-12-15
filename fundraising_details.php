@@ -31,28 +31,23 @@ include 'config.php';
         $img = $row["fundraising_image"];
         $date = $row["fundraising_createDate"];
         $target = $row["fundraising_target"];
+        $collected = $row["fundraising_fund"];
         $status = $row["fundraising_status"];
     }
 
     ?>
     <main class="main">
-        <section class="fundDetails section">
+        <section class="fundDetails section pt-5">
             <div class="container charityList-container col-md-8 py-5">
-                <div class="row pt-5">
-                    <div class="col section-header">
-                        <h2>Fundraising</h2>
-                        <p>Campaigns organized by the charities</p>
-                    </div>
-                </div>
-                <div class="row fundDetails justify-content-center pb-5">
-                    <div class="col-4">
+                <div class="charity-title row align-items-center p-4 m-4 rounded">
+                    <div class="col-md-auto text-center text-md-start">
                         <?php if (isset($img) && !empty($img)): ?>
                             <img src="<?= $img ?>" alt="Picture for Fundraising" id="fundImg" class="image-fluid image-fundraising">
                         <?php else: ?>
                             <img src="assets\img\sample-content.png" alt="Picture for Fundraising" id="fundImg" class="image-fluid image-fundraising">
                         <?php endif; ?>
                     </div>
-                    <div class="col-6">
+                    <div class="col">
                         <div class="row">
                             <h1><?= $title ?></h1>
                         </div>
@@ -61,7 +56,7 @@ include 'config.php';
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row py-5">
                     <div class="col-md-6 pb-5">
                         <div class="card fundCard">
                             <div class="card-header">
@@ -111,10 +106,16 @@ include 'config.php';
                     <div class="col-md-6 pb-5">
                         <div class="card fundCard-money">
                             <div class="card-body">
-                                <h2>Target of the fund</h2>
-                                <h1>RM <?= $target ?></h1>
-                                <div class="row">
-                                    <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
+                                <h2 class="mb-4">Fund collected so far</h2>
+                                <div class="progress-wrapper">
+                                    <div class="progress">
+                                        <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div id="progressPercentage" class="progress-percentage">0.00%</div>
+                                </div>
+                                <div class="donation-info">
+                                    <p class="mb-1"><strong>Target:</strong> RM <span id="targetAmount"><?php echo number_format($target, 2); ?></span></p>
+                                    <p><strong>Collected:</strong> RM <span id="collectedAmount"><?php echo number_format($collected, 2); ?></span></p>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +128,22 @@ include 'config.php';
         include 'layout/footer.php';
         ?>
     </main>
+    <script>
+        // Pass PHP values to JavaScript
+        const target = <?php echo $target; ?>;
+        const collected = <?php echo $collected; ?>;
 
+        // Calculate progress percentage
+        const progressPercentage = Math.min((collected / target) * 100, 100).toFixed(2); // Keep two decimal places
+
+        // Update the progress bar dynamically
+        const progressBar = document.getElementById('progressBar');
+        const progressPercentageText = document.getElementById('progressPercentage');
+
+        progressBar.style.width = progressPercentage + '%';
+        progressBar.setAttribute('aria-valuenow', progressPercentage);
+        progressPercentageText.textContent = progressPercentage + '%';
+    </script>
 </body>
 
 </html>
