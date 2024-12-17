@@ -32,7 +32,7 @@ include 'config.php';
                     if ($result) {
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<div class="col-md-6">
+                                echo '<div class="col-md-5">
                                         <div class="charitylist-container card p-2 mb-4" onclick="window.location.href=\'charity.php?id=' . $row["charity_id"] . '\';">
                                             <div class="row d-flex justify-content-md-center align-items-center pt-3">
                                                 <div class="col d-flex justify-content-md-center align-items-center pb-3">';
@@ -40,7 +40,7 @@ include 'config.php';
                                     echo '<img src="' . $row["charity_profilepic"] . '" alt="ProfilePic" id="image-charity" class="image-fluid">';
                                 else
                                     echo '<img src="assets\img\profile_icon.jpg" alt="ProfilePic" id="image-charity" class="image-fluid">';
-                                echo '</div><div class="col-md-6 px-3">
+                                echo '</div><div class="col-md-7 px-3">
                                             <h5>' . $row["charity_name"] . '</h5>
                                             <p>' . $row["charity_state"] . '</p>
                                         </div></div></div></div>';
