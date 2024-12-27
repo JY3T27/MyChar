@@ -106,7 +106,7 @@ include 'config.php';
                     <div class="col-md-6 pb-5">
                         <div class="card fundCard-money">
                             <div class="card-body">
-                                <h2 class="mb-4">Fund collected so far</h2>
+                                <h2 class="mb-4">Fund collected</h2>
                                 <div class="progress-wrapper">
                                     <div class="progress">
                                         <div id="progressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>

@@ -57,7 +57,7 @@ include 'config.php';
                                 <i class="bi bi-fullscreen-exit"></i>
                                 <div>
                                     <h5>Aim</h5>
-                                    <p>to ensure the authenticity and transparency of charity organizations, 
+                                    <p>To ensure the authenticity and transparency of charity organizations, 
                                         build donor confidence, and contribute to a secure and accountable charitable ecosystem.</p>
                                 </div>
                             </li>

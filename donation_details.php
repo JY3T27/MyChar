@@ -66,14 +66,14 @@ include 'config.php';
                                 <div class="row">
                                     <div class="col">
                                         <div class="row mb-3">
-                                            <label for="fundraising_title" class="col-md-4 col-form-label text-md-end">Fundraising Title</label>
-                                            <input id="donation_id" type="text" name="donation_id" value="<?= $_GET['id'] ?>" hidden>
+                                            <label for="fundraising_title" class="col-md-4 col-form-label text-md-end">Donated to</label>
+                                            
                                             <div class="col-md-6">
                                                 <input id="fundraising_title" type="email" class="form-control" name="fundraising_title" value="<?= $title ?>" required disabled>        
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="charity_name" class="col-md-4 col-form-label text-md-end">Charity</label>
+                                            <label for="charity_name" class="col-md-4 col-form-label text-md-end">Organized by</label>
                                             <div class="col-md-6">
                                                 <input id="charity_name" type="text" class="form-control" name="charity_name" value="<?= $charityName ?>" disabled>
                                             </div>
@@ -82,6 +82,12 @@ include 'config.php';
                                             <label for="donation_date" class="col-md-4 col-form-label text-md-end">Date</label>
                                             <div class="col-md-6">
                                                 <input id="donation_date" type="date" class="form-control" name="donation_date" value="<?= $date ?>" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="donation_id" class="col-md-4 col-form-label text-md-end">Donation ID</label>
+                                            <div class="col-md-6">
+                                                <input id="donation_id" type="text" class="form-control" name="donation_id" value="<?= $_GET['id'] ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
