@@ -36,12 +36,12 @@ include 'config.php';
                     </div>
                 <?php endif; ?>
                 <?php
-                $sql = "SELECT fundraising_id, fundraising_title, fundraising_target, fundraising_image, charity_name
-                        FROM fundraising INNER JOIN charity ON fundraising.charity_id = charity.charity_id";
+                $sql = "SELECT * FROM fundraising INNER JOIN charity ON fundraising.charity_id = charity.charity_id";
                 $result = mysqli_query($conn, $sql);
                 if ($result) {
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
+                            $percent = round($row["fundraising_fund"] / $row["fundraising_target"], 2);
                             echo '<div class="row fundraisingList" onclick="window.location.href=\'fundraising_details.php?id=' . $row["fundraising_id"] . '\'">
                                         <div class="col-4">';
                             if (isset($row["fundraising_image"]) && !empty($row["fundraising_image"]))
@@ -49,9 +49,10 @@ include 'config.php';
                             else
                                 echo '<img src="assets\img\sample-content.png" alt="Picture for Fundraising" id="fundImg" class="image-fluid image-fundraising">';
                             echo '</div><div class="col align-self-center">
-                                        <h2>' . $row["fundraising_title"] . '</h2>
+                                        <h1>' . $row["fundraising_title"] . '</h1>
                                         <h5>Organized by: <strong>' . $row["charity_name"] . '</strong></h5>
-                                        <p>Target: <strong>RM ' . $row["fundraising_target"] . '</strong></p>
+                                        <h5>Target: <strong>RM ' . $row["fundraising_target"] . '</strong></h5>
+                                        <h3><strong>' . $percent . '%</strong> of Fund Collected</h3>
                                     </div></div>';
                         }
                     }

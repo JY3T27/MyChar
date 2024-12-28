@@ -1096,16 +1096,20 @@ p {
   height: 100%;
 }
 
-.fundraisingList h2 {
+.fundraisingList h1 {
   font-weight: bold;
   color: var(--default-color);
+}
+
+.fundraisingList strong {
+  font-family: var(--nav-font);
 }
 
 .fundraisingList strong:hover {
   color: var(--accent-color);
 }
 
-.fundraisingList div:hover h2 {
+.fundraisingList div:hover h1 {
   color: var(--accent-color);
 }
 
