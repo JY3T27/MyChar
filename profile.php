@@ -150,7 +150,7 @@ include 'config.php';
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
                                 </div>
                             </div>
-                            <div class="container">
+                            <div class="container pb-5">
                                 <div class="row">
                                     <?php if ($role == 'charity'): ?>
                                         <div class="row">

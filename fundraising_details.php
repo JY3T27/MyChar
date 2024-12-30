@@ -117,6 +117,9 @@ include 'config.php';
                                     <p class="mb-1"><strong>Target:</strong> RM <span id="targetAmount"><?php echo number_format($target, 2); ?></span></p>
                                     <p><strong>Collected:</strong> RM <span id="collectedAmount"><?php echo number_format($collected, 2); ?></span></p>
                                 </div>
+                                <div class="row">
+                                    <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -41,7 +41,7 @@ include 'config.php';
                 if ($result) {
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $percent = round($row["fundraising_fund"] / $row["fundraising_target"], 2);
+                            $percent = round(($row["fundraising_fund"] / $row["fundraising_target"]) * 100, 2);
                             echo '<div class="row fundraisingList" onclick="window.location.href=\'fundraising_details.php?id=' . $row["fundraising_id"] . '\'">
                                         <div class="col-4">';
                             if (isset($row["fundraising_image"]) && !empty($row["fundraising_image"]))

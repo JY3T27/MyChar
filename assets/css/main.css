@@ -1139,6 +1139,15 @@ p {
   color: var(--accent-color);
 }
 
+.fundCard-money a {
+  color: var(--background-color);
+  font-size: 30px;
+  text-align: center;
+  background-color: var(--accent-color);
+  padding: 15px;
+  border-radius: 40px;
+}
+
 .fundCard-money {
   background-color: var(--default-color);
   min-height: 400px;
@@ -1146,6 +1155,7 @@ p {
   border: 1px solid rgba(14, 46, 80, 0.5);
   align-items: center;
   padding: 10%;
+  border-radius: 20px;
 }
 
 .fundCard-money h2 {
