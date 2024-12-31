@@ -36,7 +36,6 @@ include 'config.php';
                     </div>
                 </div>
                 <div class="row px-5 pb-5">
-                    <h3>Donation</h3>
                     <table class="table">
                         <tr>
                             <th width="10%">No</th>

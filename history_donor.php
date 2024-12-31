@@ -42,7 +42,7 @@ include 'config.php';
                             <th width="5%">No</th>
                             <th>Fundraising Title</th>
                             <th>Charity</th>
-                            <th width="10%">Amount</th>
+                            <th width="15%">Amount(RM)</th>
                             <th width="15%">Date</th>
                         </tr>
                         <?php
@@ -57,7 +57,7 @@ include 'config.php';
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr><td>" .  $numrow . "</td>";
                                     echo "<td id='title_col'> <a href='donation_details.php?id=" . $row["donation_id"] . "'>" . $row["fundraising_title"] . "</a></td><td id='title_col'>" . $row["charity_name"] . "</td>";
-                                    echo "<td id='amount_col'>RM " . $row["donation_amount"] . "</td><td>" . $row["donation_date"] . "</td>";
+                                    echo "<td id='amount_col'>" . $row["donation_amount"] . "</td><td>" . $row["donation_date"] . "</td>";
                                     echo "</tr>" . "\n\t\t";
                                     $numrow++;
                                 }

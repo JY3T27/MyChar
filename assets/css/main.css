@@ -1293,7 +1293,15 @@ p {
 }
 
 #amount_col {
+  text-align: right;
+  font-size: large;
+}
+
+#fund_col {
   text-align: left;
+  padding-left: 5%;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 /*--------------------------------------------------------------

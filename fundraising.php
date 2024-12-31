@@ -151,6 +151,41 @@ include 'config.php';
                         </form>
                     </div>
                 </div>
+                <div class="history-container row px-5 pb-5">
+                    <h3>Donation Received</h3>
+                    <table class="table">
+                        <tr>
+                            <th width="10%">No</th>
+                            <th width="30%">Date</th>
+                            <th width="20%">Amount(RM)</th>
+                            <th width="30%">Donor</th>
+                            <th width="10%">Action</th>
+                        </tr>
+                        <?php
+                        $sql = "SELECT * FROM donation 
+                                INNER JOIN donor ON donation.donor_id = donor.donor_id
+                                WHERE donation.fundraising_id = '$fundID'";
+                        $result = mysqli_query($conn, $sql);
+                        if ($result) {
+                            if (mysqli_num_rows($result) > 0) {
+                                $numrow = 1;
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo "<tr id='table_content'><td>" .  $numrow . "</td>";
+                                    echo "<td>" . $row["donation_date"] . "</td><td id='amount_col'>" . $row["donation_amount"] . "</td><td>" . $row["donor_name"] . "</td>";
+                                    echo "<td><a href='donation_charity.php?id=" . $row["donation_id"] . "'>View</a></td>";
+                                    echo "</tr>" . "\n\t\t";
+                                    $numrow++;
+                                }
+                                echo "<tr><td id='fund_col' colspan='5' >Total fund collected: RM " . $fund . "</td></tr>";
+                            } else {
+                                echo '<tr><td colspan="5">0 results</td></tr>';
+                            }
+                        } else {
+                            echo "Error: " . mysqli_error($conn);
+                        }
+                        ?>
+                    </table>
+                </div>
             </div>
         </div>
         <?php
@@ -169,9 +204,7 @@ include 'config.php';
                     echo '<script>alert("Error");</script>';
                 }
             } elseif ($action == "Delete") {
-                $sql = "DELETE FROM fundraising_update WHERE fundraising_id = '$fundingID'
-                        DELETE FROM donation WHERE fundraising_id = '$fundingID'
-                        DELETE FROM fundraising WHERE fundraising_id = '$fundingID'";
+                $sql = "DELETE FROM fundraising WHERE fundraising_id = '$fundingID'";
                 if (mysqli_query($conn, $sql)) {
                     echo '<script>alert("Delete Successfully."); window.location.href = "fundraising_charity.php";</script>';
                 } else {
