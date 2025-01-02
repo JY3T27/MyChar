@@ -18,7 +18,8 @@ include 'config.php';
     if (isset($donateID) && !empty($donateID)) {
         $sql = 'SELECT * FROM donation
                 INNER JOIN fundraising ON donation.fundraising_id = fundraising.fundraising_id
-                INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
+                INNER JOIN charity ON fundraising.charity_id = charity.charity_id
+                INNER JOIN donor ON donation.donor_id = donor.donor_id   
                 WHERE donation_id = ' . $donateID;
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
@@ -29,6 +30,7 @@ include 'config.php';
         $fundID = $row["fundraising_id"];
         $charity = $row["charity_id"];
         $charityName = $row["charity_name"];
+        $donorName = $row["donor_name"];
         $status = $row["donation_status"];
         if ($status == '1') {
             $statusText = "Received";
@@ -53,7 +55,7 @@ include 'config.php';
                                             <button type="submit" id="togglePassword" name="donationAction" value="changeNotDone" class="btn shadow-none bg-transparent border-0">
                                                 <i class="fa fa-check-square-o fs-2" aria-hidden="true"></i></button>
                                         <?php else: ?>
-                                            <button type="submit" id="togglePassword" name="donationAction" value="changeDone" onclick="return confirm('Confirm done reviewing this report?')" class="btn shadow-none bg-transparent border-0">
+                                            <button type="submit" id="togglePassword" name="donationAction" value="changeDone" onclick="return confirm('Confirm done received donation?')" class="btn shadow-none bg-transparent border-0">
                                                 <i class="fa fa-square-o fs-2" aria-hidden="true"></i></button>
                                         <?php endif; ?>
                                     <?php else: ?>
@@ -67,17 +69,26 @@ include 'config.php';
                                     <div class="col">
                                         <div class="row mb-3">
                                             <label for="fundraising_title" class="col-md-4 col-form-label text-md-end">Donated to</label>
-                                            
+
                                             <div class="col-md-6">
-                                                <input id="fundraising_title" type="email" class="form-control" name="fundraising_title" value="<?= $title ?>" required disabled>        
+                                                <input id="fundraising_title" type="email" class="form-control" name="fundraising_title" value="<?= $title ?>" required disabled>
                                             </div>
                                         </div>
-                                        <div class="row mb-3">
-                                            <label for="charity_name" class="col-md-4 col-form-label text-md-end">Organized by</label>
-                                            <div class="col-md-6">
-                                                <input id="charity_name" type="text" class="form-control" name="charity_name" value="<?= $charityName ?>" disabled>
+                                        <?php if ($_SESSION["role"] == 'charity'): ?>
+                                            <div class="row mb-3">
+                                                <label for="donor_name" class="col-md-4 col-form-label text-md-end">Donated by</label>
+                                                <div class="col-md-6">
+                                                    <input id="donor_name" type="text" class="form-control" name="donor_name" value="<?= $donorName ?>" disabled>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php else: ?>
+                                            <div class="row mb-3">
+                                                <label for="charity_name" class="col-md-4 col-form-label text-md-end">Organized by</label>
+                                                <div class="col-md-6">
+                                                    <input id="charity_name" type="text" class="form-control" name="charity_name" value="<?= $charityName ?>" disabled>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
                                         <div class="row mb-3">
                                             <label for="donation_date" class="col-md-4 col-form-label text-md-end">Date</label>
                                             <div class="col-md-6">
@@ -87,7 +98,7 @@ include 'config.php';
                                         <div class="row mb-3">
                                             <label for="donation_id" class="col-md-4 col-form-label text-md-end">Donation ID</label>
                                             <div class="col-md-6">
-                                                <input id="donation_id" type="text" class="form-control" name="donation_id" value="<?= $_GET['id'] ?>" disabled>
+                                                <input id="donation_id" type="text" class="form-control" name="donation_id" value="<?= $donateID ?>" disabled>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -143,7 +154,7 @@ include 'config.php';
                         if ($_SESSION["role"] == 'admin') {
                             echo '<script>window.location.href = "admin_dashboard.php";</script>';
                         } else {
-                            echo '<script>window.location.href = "history_donor.php";</script>';                           
+                            echo '<script>window.location.href = "history_donor.php";</script>';
                         }
                     } else {
                         echo '<script>alert("Error in deleting.");</script>';
