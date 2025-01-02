@@ -25,6 +25,7 @@ include 'config.php';
                 WHERE fundraising_id = ' . $fundID;
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
+        $charityID = $row["charity_id"];
         $charity = $row["charity_name"];
         $title = $row["fundraising_title"];
         $desc = $row["fundraising_desc"];
@@ -52,7 +53,7 @@ include 'config.php';
                             <h1><?= $title ?></h1>
                         </div>
                         <div class="row">
-                            <h3>By: <?= $charity ?></h3>
+                            <h3>By: <a href="charity.php?id=<?= $charityID ?>"><?= $charity ?></a> </h3>
                         </div>
                     </div>
                 </div>
@@ -67,6 +68,9 @@ include 'config.php';
                                     <li class="nav-item">
                                         <a class="nav-link" id="tab-profile" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Updates</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-question" data-toggle="tab" href="#question" role="tab" aria-controls="question" aria-selected="false">Questions</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="card-body">
@@ -78,6 +82,29 @@ include 'config.php';
                                         <p><?= $date ?></p>
                                     </div>
                                     <div class="fundCard-body tab-pane fade" id="profile" role="tabpanel" aria-labelledby="tab-profile">
+                                        <?php
+                                        $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $_GET["id"];
+                                        $result = mysqli_query($conn, $sql);
+                                        if ($result) {
+                                            if (mysqli_num_rows($result) > 0) {
+                                                $numrow = 1;
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    echo '  <h5>Update(' . $numrow . ')</h5>
+                                                            <p>' . $row['update_desc'] . '</p>
+                                                            <h5>Date updated</h5>
+                                                            <p>' . $row['update_date'] . '</p><hr>';
+                                                    $numrow++;
+                                                }
+                                            } else {
+                                                echo "There is no update about the fundraising";
+                                            }
+                                        } else {
+                                            echo "Error: " . mysqli_error($conn);
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="fundCard-body tab-pane fade" id="question" role="tabpanel" aria-labelledby="tab-question">
+                                        <h2>Question</h2>
                                         <?php
                                         $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $_GET["id"];
                                         $result = mysqli_query($conn, $sql);
