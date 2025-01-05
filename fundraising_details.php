@@ -19,6 +19,7 @@ include 'config.php';
     include 'layout/nav.php';
     $fundID = $_GET["id"];
     $_SESSION['donatingID'] = $fundID;
+    $role = $_SESSION['role'];
     if (isset($fundID) && !empty($fundID)) {
         $sql = 'SELECT * FROM fundraising 
                 INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
@@ -39,7 +40,7 @@ include 'config.php';
     ?>
     <main class="main">
         <section class="fundDetails section pt-5">
-            <div class="container charityList-container col-md-8 py-5">
+            <div class="container charityList-container col-md-10 py-5">
                 <div class="charity-title row align-items-center p-4 m-4 rounded">
                     <div class="col-md-auto text-center text-md-start">
                         <?php if (isset($img) && !empty($img)): ?>
@@ -76,14 +77,14 @@ include 'config.php';
                             <div class="card-body">
                                 <div class="tab-content" id="card-tabContent">
                                     <div class="fundCard-body tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="tab-home">
-                                        <h5>Description</h5>
+                                        <h3>Description</h3>
                                         <p><?= $desc ?></p>
-                                        <h5>Date created</h5>
+                                        <h3>Date created</h3>
                                         <p><?= $date ?></p>
                                     </div>
                                     <div class="fundCard-body tab-pane fade" id="profile" role="tabpanel" aria-labelledby="tab-profile">
                                         <?php
-                                        $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $_GET["id"];
+                                        $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $fundID;
                                         $result = mysqli_query($conn, $sql);
                                         if ($result) {
                                             if (mysqli_num_rows($result) > 0) {
@@ -104,27 +105,50 @@ include 'config.php';
                                         ?>
                                     </div>
                                     <div class="fundCard-body tab-pane fade" id="question" role="tabpanel" aria-labelledby="tab-question">
-                                        <h2>Question</h2>
-                                        <?php
-                                        $sql = 'SELECT * FROM fundraising_update WHERE fundraising_id = ' . $_GET["id"];
-                                        $result = mysqli_query($conn, $sql);
-                                        if ($result) {
-                                            if (mysqli_num_rows($result) > 0) {
-                                                $numrow = 1;
-                                                while ($row = mysqli_fetch_assoc($result)) {
-                                                    echo '  <h5>Update(' . $numrow . ')</h5>
-                                                            <p>' . $row['update_desc'] . '</p>
-                                                            <h5>Date updated</h5>
-                                                            <p>' . $row['update_date'] . '</p><hr>';
-                                                    $numrow++;
+                                        <div class="row justify-content-between">
+                                            <div class="col-5">
+                                                <h3>Question</h3>
+                                            </div>
+                                            <?php if ($role == 'charity'): ?>
+                                                <div class="col-4 m-1">
+                                                    <a href="question_reply.php?id=<?= $fundID ?>" id="buttonAsk">Reply</a>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="col-4 m-1">
+                                                    <a href="question_create.php?id=<?= $fundID ?>" id="buttonAsk">Ask</a>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="question-section px-3">
+                                            <?php
+                                            $sql = 'SELECT * FROM question 
+                                                    INNER JOIN donor ON question.donor_id = donor.donor_id
+                                                    WHERE fundraising_id = ' . $fundID;
+                                            $result = mysqli_query($conn, $sql);
+                                            if ($result) {
+                                                if (mysqli_num_rows($result) > 0) {
+                                                    $numrow = 1;
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        if ($row["question_reply"] != "") {
+                                                            echo '<div><h5>Question by ' . $row["donor_name"] . ' on ' . $row["question_textDate"] . ' </h5>
+                                                                  <p>' . $row['question_text'] . '</p>
+                                                                  <h5>Reply on ' . $row["question_replyDate"] . ': </h5>
+                                                                  <p>' . $row['question_reply'] . '</p></div>';
+                                                        } else {
+                                                            echo '<div><h5>Question by ' . $row["donor_name"] . ' on ' . $row["question_textDate"] . ' </h5>
+                                                                  <p>' . $row['question_text'] . '</p></div>';
+                                                        }
+                                                        $numrow++;
+                                                    }
+                                                } else {
+                                                    echo "There is no question at the moment.";
                                                 }
                                             } else {
-                                                echo "There is no update about the fundraising";
+                                                echo "Error: " . mysqli_error($conn);
                                             }
-                                        } else {
-                                            echo "Error: " . mysqli_error($conn);
-                                        }
-                                        ?>
+                                            ?>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -159,17 +183,11 @@ include 'config.php';
         ?>
     </main>
     <script>
-        // Pass PHP values to JavaScript
         const target = <?php echo $target; ?>;
         const collected = <?php echo $collected; ?>;
-
-        // Calculate progress percentage
         const progressPercentage = Math.min((collected / target) * 100, 100).toFixed(2); // Keep two decimal places
-
-        // Update the progress bar dynamically
         const progressBar = document.getElementById('progressBar');
         const progressPercentageText = document.getElementById('progressPercentage');
-
         progressBar.style.width = progressPercentage + '%';
         progressBar.setAttribute('aria-valuenow', progressPercentage);
         progressPercentageText.textContent = progressPercentage + '%';

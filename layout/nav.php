@@ -12,7 +12,7 @@ if (isset($_SESSION["UID"])) {
                         <ul>
                             <li><a href="index.php" class="active">Home</a></li>
                             <li><a href="index.php#about">About</a></li>
-                            <li><a href="charitylist.php">Charity</a></li>
+                            <li><a href="charitylist.php">Charities</a></li>
                             <li><a href="fundraisinglist.php">Fundraising</a></li>
                             <li class="dropdown"><a href="#"><span>Charity</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
@@ -40,7 +40,7 @@ if (isset($_SESSION["UID"])) {
                         <ul>
                             <li><a href="index.php" class="active">Home</a></li>
                             <li><a href="index.php#about">About</a></li>
-                            <li><a href="charitylist.php">Charity</a></li>
+                            <li><a href="charitylist.php">Charities</a></li>
                             <li><a href="fundraisinglist.php">Fundraising</a></li>
                             <li class="dropdown"><a href="#"><span>User</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
@@ -68,7 +68,7 @@ if (isset($_SESSION["UID"])) {
                         <ul>
                             <li><a href="index.php" class="active">Home</a></li>
                             <li><a href="index.php#about">About</a></li>
-                            <li><a href="charitylist.php">Charity</a></li>
+                            <li><a href="charitylist.php">Charities</a></li>
                             <li><a href="fundraisinglist.php">Fundraising</a></li>
                             <li class="dropdown"><a href="#"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
@@ -95,7 +95,7 @@ if (isset($_SESSION["UID"])) {
             <ul>
                 <li><a href="index.php" class="active">Home</a></li>
                 <li><a href="index.php#about">About</a></li>
-                <li><a href="charitylist.php">Charity</a></li>
+                <li><a href="charitylist.php">Charities</a></li>
                 <li><a href="fundraisinglist.php">Fundraising</a></li>
             </ul>
         </nav>

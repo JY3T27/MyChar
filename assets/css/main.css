@@ -1148,6 +1148,21 @@ p {
   border-radius: 40px;
 }
 
+#buttonAsk {
+  background-color: var(--default-color);
+  border-radius: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: var(--background-color);
+}
+
+#buttonAsk:hover {
+  background-color: var(--accent-color);
+  color: var(--background-color);
+}
+
 .fundCard-money {
   background-color: var(--default-color);
   min-height: 400px;
@@ -1322,4 +1337,19 @@ p {
 
 .charity-title a:hover {
   color: var(--accent-color);
+}
+
+/*--------------------------------------------------------------
+# Question Section
+--------------------------------------------------------------*/
+.question-section p{
+  padding-left: 5%;
+}
+
+.question-section h5 {
+  font-family: var(--default-font);
+}
+
+.question-section div {
+  border-bottom: 1px solid var(--default-color);
 }

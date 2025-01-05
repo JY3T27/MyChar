@@ -1,85 +1,71 @@
 <?php
-$target = 8888.88;
-$collected = 888;
-
+// Start the session if you want to use session variables (optional)
+session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Donation Progress</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Dynamic Comment Section</title>
     <style>
-        .donation-container {
-            max-width: 500px;
-            margin: 50px auto;
-            background: #fff;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
         }
 
-        .progress-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .progress {
-            flex-grow: 1;
-            margin-right: 10px;
-            height: 30px;
+        #comment-section {
+            margin-bottom: 20px;
         }
 
-        .progress-percentage {
-            font-size: 1rem;
-            font-weight: bold;
+        .comment {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
         }
     </style>
 </head>
-
-<body class="bg-light">
-
-    <div class="donation-container">
-        <h1 class="mb-4">Donation Progress</h1>
-        <div class="progress-wrapper">
-            <div class="progress">
-                <div id="progressBar" class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            <div id="progressPercentage" class="progress-percentage">0.00%</div>
+<body>
+    <div class="container">
+        <h1>Comment Section</h1>
+        <div id="comment-section">
+            <!-- Comments will be displayed here -->
         </div>
-        <div class="donation-info">
-            <p class="mb-1"><strong>Target:</strong> $<span id="targetAmount"><?php echo number_format($target, 2); ?></span></p>
-            <p><strong>Collected:</strong> $<span id="collectedAmount"><?php echo number_format($collected, 2); ?></span></p>
-        </div>
+        <input type="text" id="comment-input" placeholder="Write a comment...">
+        <button id="submit-comment">Send</button>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JavaScript -->
     <script>
-        // Pass PHP values to JavaScript
-        const target = <?php echo $target; ?>;
-        const collected = <?php echo $collected; ?>;
+        document.getElementById('submit-comment').addEventListener('click', function() {
+            const commentInput = document.getElementById('comment-input');
+            const commentText = commentInput.value;
 
-        // Calculate progress percentage
-        const progressPercentage = Math.min((collected / target) * 100, 100).toFixed(2); // Keep two decimal places
+            if (commentText.trim() !== '') {
+                // Create a new comment element
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+                commentElement.textContent = commentText;
 
-        // Update the progress bar dynamically
-        const progressBar = document.getElementById('progressBar');
-        const progressPercentageText = document.getElementById('progressPercentage');
+                // Append the new comment to the comment section
+                document.getElementById('comment-section').appendChild(commentElement);
 
-        progressBar.style.width = progressPercentage + '%';
-        progressBar.setAttribute('aria-valuenow', progressPercentage);
-        progressPercentageText.textContent = progressPercentage + '%';
+                // Clear the input field
+                commentInput.value = '';
+            } else {
+                alert("Please enter a comment.");
+            }
+        });
     </script>
 </body>
-
 </html>

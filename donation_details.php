@@ -42,7 +42,7 @@ include 'config.php';
     <main class="main">
         <div class="container py-5">
             <div class="row justify-content-center py-5">
-                <div class="profile-container col-md-8 py-5">
+                <div class="profile-container col-md-10 py-5">
                     <div class="card text-center py-4 px-3">
                         <form id="profile" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                             <div class="row">
