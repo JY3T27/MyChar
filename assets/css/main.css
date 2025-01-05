@@ -1342,8 +1342,8 @@ p {
 /*--------------------------------------------------------------
 # Question Section
 --------------------------------------------------------------*/
-.question-section p{
-  padding-left: 5%;
+.question-section p {
+  margin-left: 5%;
 }
 
 .question-section h5 {
@@ -1352,4 +1352,22 @@ p {
 
 .question-section div {
   border-bottom: 1px solid var(--default-color);
+}
+
+.question-create p {
+  margin-left: 5%;
+  font-family: var(--default-font);
+}
+
+.question-create h4 {
+  font-family: var(--default-font);
+}
+
+.question-create textarea {
+  margin-left: 5%;
+}
+
+#question-desc {
+  margin-left: 10%;
+  padding-left: 5%;
 }

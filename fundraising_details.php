@@ -19,7 +19,6 @@ include 'config.php';
     include 'layout/nav.php';
     $fundID = $_GET["id"];
     $_SESSION['donatingID'] = $fundID;
-    $role = $_SESSION['role'];
     if (isset($fundID) && !empty($fundID)) {
         $sql = 'SELECT * FROM fundraising 
                 INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
@@ -36,6 +35,10 @@ include 'config.php';
         $collected = $row["fundraising_fund"];
         $status = $row["fundraising_status"];
     }
+    if (isset($_SESSION['role']) && !empty($_SESSION['role']))
+        $role = $_SESSION['role'];
+    else
+        $role = "";
 
     ?>
     <main class="main">
@@ -105,20 +108,6 @@ include 'config.php';
                                         ?>
                                     </div>
                                     <div class="fundCard-body tab-pane fade" id="question" role="tabpanel" aria-labelledby="tab-question">
-                                        <div class="row justify-content-between">
-                                            <div class="col-5">
-                                                <h3>Question</h3>
-                                            </div>
-                                            <?php if ($role == 'charity'): ?>
-                                                <div class="col-4 m-1">
-                                                    <a href="question_reply.php?id=<?= $fundID ?>" id="buttonAsk">Reply</a>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="col-4 m-1">
-                                                    <a href="question_create.php?id=<?= $fundID ?>" id="buttonAsk">Ask</a>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
                                         <div class="question-section px-3">
                                             <?php
                                             $sql = 'SELECT * FROM question 
@@ -148,7 +137,13 @@ include 'config.php';
                                             }
                                             ?>
                                         </div>
-
+                                        <div class="row justify-content-end p-3">
+                                            <?php if ($role != 'charity' && $role != 'admin'): ?>
+                                                <div class="col-3 m-1">
+                                                    <a href="question_create.php?id=<?= $fundID ?>" id="buttonAsk">Ask</a>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

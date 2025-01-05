@@ -54,7 +54,7 @@ if (!isset($_SESSION['UID'])) {
     ?>
     <main class="main">
         <section id="charityList" class="charityList section">
-            <div class="container question-section col-md-10 pt-5">
+            <div class="container question-create col-md-10 pt-5 mt-5">
                 <div class="charity-title row align-items-center p-4 m-4 rounded">
                     <div class="col-md-auto text-center text-md-start">
                         <?php if (isset($img) && !empty($img)): ?>

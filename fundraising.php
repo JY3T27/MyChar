@@ -151,40 +151,83 @@ include 'config.php';
                         </form>
                     </div>
                 </div>
-                <div class="history-container row px-5 pb-5">
-                    <h3>Donation Received</h3>
-                    <table class="table">
-                        <tr>
-                            <th width="10%">No</th>
-                            <th width="30%">Date</th>
-                            <th width="20%">Amount(RM)</th>
-                            <th width="30%">Donated By</th>
-                            <th width="10%">Action</th>
-                        </tr>
-                        <?php
-                        $sql = "SELECT * FROM donation 
+                <div class="history-container row justify-content-center m-3">
+                    <div class="col-11">
+                        <h3>Donation Received</h3>
+                        <table class="table">
+                            <tr>
+                                <th width="10%">No</th>
+                                <th width="30%">Date</th>
+                                <th width="20%">Amount(RM)</th>
+                                <th width="30%">Donated By</th>
+                                <th width="10%">Action</th>
+                            </tr>
+                            <?php
+                            $sql = "SELECT * FROM donation 
                                 INNER JOIN donor ON donation.donor_id = donor.donor_id
                                 WHERE donation.fundraising_id = '$fundID'";
-                        $result = mysqli_query($conn, $sql);
-                        if ($result) {
-                            if (mysqli_num_rows($result) > 0) {
-                                $numrow = 1;
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr id='table_content'><td>" .  $numrow . "</td>";
-                                    echo "<td>" . $row["donation_date"] . "</td><td id='amount_col'>" . $row["donation_amount"] . "</td><td>" . $row["donor_name"] . "</td>";
-                                    echo "<td><a href='donation_details.php?id=" . $row["donation_id"] . "'>View</a></td>";
-                                    echo "</tr>" . "\n\t\t";
-                                    $numrow++;
+                            $result = mysqli_query($conn, $sql);
+                            if ($result) {
+                                if (mysqli_num_rows($result) > 0) {
+                                    $numrow = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr id='table_content'><td>" .  $numrow . "</td>";
+                                        echo "<td>" . $row["donation_date"] . "</td><td id='amount_col'>" . $row["donation_amount"] . "</td><td>" . $row["donor_name"] . "</td>";
+                                        echo "<td><a href='donation_details.php?id=" . $row["donation_id"] . "'>View</a></td>";
+                                        echo "</tr>" . "\n\t\t";
+                                        $numrow++;
+                                    }
+                                    echo "<tr><td id='fund_col' colspan='5' >Total fund collected: RM " . $fund . "</td></tr>";
+                                } else {
+                                    echo '<tr><td colspan="5">0 results</td></tr>';
                                 }
-                                echo "<tr><td id='fund_col' colspan='5' >Total fund collected: RM " . $fund . "</td></tr>";
                             } else {
-                                echo '<tr><td colspan="5">0 results</td></tr>';
+                                echo "Error: " . mysqli_error($conn);
                             }
-                        } else {
-                            echo "Error: " . mysqli_error($conn);
-                        }
-                        ?>
-                    </table>
+                            ?>
+                        </table>
+                    </div>
+                </div>
+                <div class="history-container row justify-content-center m-3">
+                    <div class="col-11">
+                        <h3>Question Asked</h3>
+                        <table class="table">
+                            <tr>
+                                <th width="10%">No</th>
+                                <th width="10%">Date</th>
+                                <th>Question</th>
+                                <th width="20%">Asked By</th>
+                                <th width="5%">Reply</th>
+                                <th width="10%">Action</th>
+                            </tr>
+                            <?php
+                            $sql = "SELECT * FROM question 
+                                    INNER JOIN donor ON question.donor_id = donor.donor_id
+                                    WHERE question.fundraising_id = '$fundID'";
+                            $result = mysqli_query($conn, $sql);
+                            if ($result) {
+                                if (mysqli_num_rows($result) > 0) {
+                                    $numrow = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr id='table_content'><td>" .  $numrow . "</td>";
+                                        echo "<td>" . $row["question_textDate"] . "</td><td>" . $row["question_text"] . "</td><td>" . $row["donor_name"] . "</td>";
+                                        if (isset($row['question_reply']) && !empty($row['question_reply'])) 
+                                            echo '<td id="tickbox"><input type="checkbox" checked disabled></td>';
+                                        else
+                                            echo '<td id="tickbox"><input type="checkbox" disabled></td>';
+                                        echo "<td><a href='question_reply.php?id=" . $row["question_id"] . "'>View</a></td>";
+                                        echo "</tr>" . "\n\t\t";
+                                        $numrow++;
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="6">0 results</td></tr>';
+                                }
+                            } else {
+                                echo "Error: " . mysqli_error($conn);
+                            }
+                            ?>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

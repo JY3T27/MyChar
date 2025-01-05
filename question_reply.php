@@ -1,12 +1,6 @@
 <?php
 session_start();
 include 'config.php';
-
-if (!isset($_SESSION['UID'])) {
-    $_SESSION['donating'] = 'question_create.php';
-    echo '<script>window.location.href = "login.php";</script>';
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +9,20 @@ if (!isset($_SESSION['UID'])) {
     <?php
     include 'layout/header.php';
     ?>
+    <script>
+        function enableEdit() {
+            const element = document.getElementById("question-desc");
+            if (element.disabled) {
+                document.getElementById("question-desc").disabled = false;
+                document.getElementById("updateBtn").style.display = "block";
+                document.getElementById("resetBtn").style.display = "block";
+            } else {
+                document.getElementById("question-desc").disabled = true;
+                document.getElementById("updateBtn").style.display = "none";
+                document.getElementById("resetBtn").style.display = "none";
+            }
+        }
+    </script>
 </head>
 
 <body class="index-page">
@@ -22,22 +30,32 @@ if (!isset($_SESSION['UID'])) {
     include 'layout/nav.php';
     $userID = $_SESSION['UID'];
     if (isset($userID) && !empty($userID)) {
-        $sql = 'SELECT * FROM donor
-                INNER JOIN users ON donor.user_id = users.user_id   
+        $sql = 'SELECT * FROM charity
+                INNER JOIN users ON charity.user_id = charity.user_id   
                 WHERE users.user_id = ' . $userID;
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
-        $donorID = $row["donor_id"];
+        $charityID = $row["charity_id"];
     }
-    $fundID = $_SESSION['donatingID'];
-    if (isset($fundID) && !empty($fundID)) {
-        $sql = 'SELECT * FROM fundraising 
-                INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
-                WHERE fundraising_id = ' . $fundID;
-        $result = mysqli_query($conn, $sql);
+    $replyID = $_GET['id'];
+    $sql = "SELECT * FROM question 
+            INNER JOIN donor ON question.donor_id = donor.donor_id
+            INNER JOIN fundraising ON question.fundraising_id = fundraising.fundraising_id
+            INNER JOIN charity ON fundraising.charity_id = charity.charity_id
+            WHERE question.question_id = '$replyID'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
         $row = mysqli_fetch_assoc($result);
+        $text = $row['question_text'];
+        $textDate = $row['question_textDate'];
+        if (isset($row['question_reply']) && !empty($row['question_reply'])) {
+            $reply = $row['question_reply'];
+            $replyDate = $row['question_replyDate'];
+        }
+        $donorName = $row['donor_name'];
         $charityID = $row["charity_id"];
         $charity = $row["charity_name"];
+        $fundID = $row["fundraising_id"];
         $title = $row["fundraising_title"];
         $desc = $row["fundraising_desc"];
         $img = $row["fundraising_image"];
@@ -51,10 +69,11 @@ if (!isset($_SESSION['UID'])) {
             $statusText = "Not Active";
         }
     }
+
     ?>
     <main class="main">
         <section id="charityList" class="charityList section">
-            <div class="container question-section col-md-10 pt-5">
+            <div class="container question-create col-md-10 pt-5 mt-5">
                 <div class="charity-title row align-items-center p-4 m-4 rounded">
                     <div class="col-md-auto text-center text-md-start">
                         <?php if (isset($img) && !empty($img)): ?>
@@ -91,34 +110,85 @@ if (!isset($_SESSION['UID'])) {
                 <div class="card p-3 mb-5">
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="login">
                         <div class="row px-5">
-                            <h4>Question for the fundraising</h4>
+                            <h4>Question from Donor <?= $donorName ?> on <?= $textDate ?></h4>
+                            <p><?= $text ?></p>
                         </div>
-                        <div class="row px-5 mb-1">
-                            <textarea rows="7" id="question-desc" name="question-desc" class="form-control" placeholder="Type in the question."></textarea>
-                        </div>
-                        <div class="row justify-content-md-center mt-3 px-5">
+                        <div class="row justify-content-between align-items-center px-5 mb-1">
                             <div class="col">
-                                <button type="submit" value="Update" class="profile-Editbtn" id="feedbackbtn">Sent</button>
-                                <button type="reset" value="Reset" class="profile-Editbtn" id="feedbackbtn">Reset</button>
+                                <h4>Reply</h4>
+                            </div>
+                            <?php if (isset($reply) && !empty($reply)): ?>
+                                <div class="col">
+                                    <button type="button" id="togglePassword" onclick="enableEdit()" class="btn shadow-none bg-transparent border-0">
+                                        <i class="fa fa-pencil-square-o fs-2" aria-hidden="true"></i></button>
+                                    <button type="submit" id="togglePassword" onclick="return confirm('Confirm delete reply?')" name="action" value="Delete" class="btn shadow-none bg-transparent border-0">
+                                        <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <input id="fundraising_id" type="text" class="form-control" name="fundraising_id" value="<?= $fundID ?>" hidden>
+                                <input id="reply_id" type="text" class="form-control" name="reply_id" value="<?= $replyID ?>" hidden>
+                                <?php if (isset($reply) && !empty($reply)): ?>
+                                    <textarea rows="4" id="question-desc" name="question-desc" class="form-control" disabled><?= $reply ?></textarea>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row editBtn">
+                                                <button type="submit" value="Edit" id="updateBtn" class="profile-Editbtn col" name="action">Update</button>
+                                                <button type="reset" value="Reset" id="resetBtn" class="profile-Editbtn col">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <textarea rows="4" id="question-desc" name="question-desc" class="form-control" placeholder="Write your charity reply on this question."></textarea>
+                                    <div class="row justify-content-md-center mt-3 px-5">
+                                        <div class="col">
+                                            <button type="submit" value="Reply" class="profile-Editbtn" id="feedbackbtn" name="action">Sent</button>
+                                            <button type="reset" value="Reset" class="profile-Editbtn" id="feedbackbtn">Reset</button>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
+
                     </form>
                 </div>
         </section>
 
         <?php
         include 'layout/footer.php';
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $userID = $_SESSION['UID'];
-            $text = $_POST['question-desc'];
-            $sql = "INSERT INTO question (question_id, donor_id, fundraising_id, question_text, question_textDate) 
-                    VALUES('', '$donorID', '$fundID', '$text', CURRENT_TIMESTAMP)";
-            if (mysqli_query($conn, $sql)) {
-                unset($_SESSION['donatingID']);
-                echo '<script>alert("Successfully ask question. ");window.location.href = "fundraising_details.php?id='. $fundID . '";</script>';
-            } else {
-                echo '<script>alert("Error");</script>';
+            $action = $_POST["action"];
+            $replyID = $_POST['reply_id'];
+            $fundID = $_POST['fundraising_id'];
+            if ($action == "Edit") {
+                $text = $_POST['question-desc'];
+                $sql = "UPDATE question SET question_reply = '$text'
+                    WHERE question_id = '$replyID'";
+                if (mysqli_query($conn, $sql)) {
+                    echo '<script>alert("Successfully edit reply. ");window.location.href = "fundraising.php?id=' . $fundID . '";</script>';
+                } else {
+                    echo '<script>alert("Error");</script>';
+                }
+            } elseif ($action == "Reply") {
+                $sql = "UPDATE question SET question_reply = '$text', question_replyDate = CURRENT_TIMESTAMP
+                    WHERE question_id = '$replyID'";
+                if (mysqli_query($conn, $sql)) {
+                    echo '<script>alert("Successfully reply to question. ");window.location.href = "fundraising.php?id=' . $fundID . '";</script>';
+                } else {
+                    echo '<script>alert("Error");</script>';
+                }
+            } elseif ($action == "Delete") {
+                $sql = "UPDATE question SET question_reply = '', question_replyDate = ''
+                        WHERE question_id = '$replyID'";
+                if (mysqli_query($conn, $sql)) {
+                    echo '<script>alert("Successfully delete reply. ");window.location.href = "fundraising.php?id=' . $fundID . '";</script>';
+                } else {
+                    echo '<script>alert("Error");</script>';
+                }
             }
         }
         ?>
