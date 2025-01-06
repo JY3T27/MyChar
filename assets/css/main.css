@@ -1352,6 +1352,7 @@ p {
 
 .question-section div {
   border-bottom: 1px solid var(--default-color);
+  margin-bottom: 5%;
 }
 
 .question-create p {

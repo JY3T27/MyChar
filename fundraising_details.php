@@ -121,7 +121,7 @@ include 'config.php';
                                                         if ($row["question_reply"] != "") {
                                                             echo '<div><h5>Question by ' . $row["donor_name"] . ' on ' . $row["question_textDate"] . ' </h5>
                                                                   <p>' . $row['question_text'] . '</p>
-                                                                  <h5>Reply on ' . $row["question_replyDate"] . ': </h5>
+                                                                  <h5>Reply from charity on ' . $row["question_replyDate"] . ': </h5>
                                                                   <p>' . $row['question_reply'] . '</p></div>';
                                                         } else {
                                                             echo '<div><h5>Question by ' . $row["donor_name"] . ' on ' . $row["question_textDate"] . ' </h5>

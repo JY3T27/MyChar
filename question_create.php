@@ -94,7 +94,9 @@ if (!isset($_SESSION['UID'])) {
                             <h4>Question for the fundraising</h4>
                         </div>
                         <div class="row px-5 mb-1">
-                            <textarea rows="7" id="question-desc" name="question-desc" class="form-control" placeholder="Type in the question."></textarea>
+                            <div class="col-8">
+                                <textarea rows="4" id="question-desc" name="question-desc" class="form-control" placeholder="Type in the question."></textarea>
+                            </div>
                         </div>
                         <div class="row justify-content-md-center mt-3 px-5">
                             <div class="col">
@@ -116,7 +118,7 @@ if (!isset($_SESSION['UID'])) {
                     VALUES('', '$donorID', '$fundID', '$text', CURRENT_TIMESTAMP)";
             if (mysqli_query($conn, $sql)) {
                 unset($_SESSION['donatingID']);
-                echo '<script>alert("Successfully ask question. ");window.location.href = "fundraising_details.php?id='. $fundID . '";</script>';
+                echo '<script>alert("Successfully ask question. ");window.location.href = "fundraising_details.php?id=' . $fundID . '";</script>';
             } else {
                 echo '<script>alert("Error");</script>';
             }

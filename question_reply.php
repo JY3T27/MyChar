@@ -174,8 +174,9 @@ include 'config.php';
                     echo '<script>alert("Error");</script>';
                 }
             } elseif ($action == "Reply") {
+                $text = $_POST['question-desc'];
                 $sql = "UPDATE question SET question_reply = '$text', question_replyDate = CURRENT_TIMESTAMP
-                    WHERE question_id = '$replyID'";
+                        WHERE question_id = '$replyID'";
                 if (mysqli_query($conn, $sql)) {
                     echo '<script>alert("Successfully reply to question. ");window.location.href = "fundraising.php?id=' . $fundID . '";</script>';
                 } else {
