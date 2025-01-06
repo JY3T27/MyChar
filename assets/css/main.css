@@ -1007,13 +1007,13 @@ p {
   border: 1px solid var(--default-color);
   height: 50px;
   vertical-align: middle;
-  text-align: start;
 }
 
 .admin-container th {
   background-color: var(--default-color);
   color: var(--background-color);
   border: 1px solid var(--background-color);
+  text-align: center;
 }
 
 #tickbox {
@@ -1039,6 +1039,28 @@ p {
 
 .admin-container h4 {
   color: var(--accent-color);
+  font-weight: 800;
+  font-family: var(--heading-font);
+}
+
+#viewBtn {
+  color: var(--default-color);
+  font-size: 20px;
+  text-align: end;
+}
+
+#viewBtn:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+.admin-container .card {
+  border-radius: 25px;
+}
+
+.admin-container .card .card-header {
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
 
 /*--------------------------------------------------------------

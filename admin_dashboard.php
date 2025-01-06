@@ -73,44 +73,71 @@ include 'config.php';
     ?>
 
     <main class="main">
-        <section id="adminDashboard" class="adminDashBoard section">
-            <div class="container admin-container col-md-8 py-5">
+        <section id="adminDashboard" class="section">
+            <div class="container admin-container col-md-8 pt-5">
                 <div class="row pt-5">
                     <div class="col section-header">
                         <h2>Admin Dashboard</h2>
                     </div>
                 </div>
                 <div class="row justify-content-center pb-5">
-                    <div class="col-md-4 justify-content-center pb-3">
+                    <div class="col-md-4 pb-3">
                         <div class="card">
                             <div class="card-header" id="admin-graph">
-                                <h4 class="card-title">Number of User</h4>
-                                <p class="card-category">Since website launched</p>
+                                <div class="row justify-content-between">
+                                    <div class="col-7">
+                                        <h4 class="card-title">Number of User</h4>
+                                        <p class="card-category">Since website launched</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="userdatabase.php?type=user"><i class="fa fa-arrow-right fs-2" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <canvas id="lineGraphUser" width="400" height="200"></canvas>
+                                <div class="row">
+                                    <canvas id="lineGraphUser" width="400" height="200"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 pb-3">
                         <div class="card">
                             <div class="card-header" id="admin-graph">
-                                <h4 class="card-title">Number of Donor</h4>
-                                <p class="card-category">Since website launched</p>
+                                <div class="row justify-content-between">
+                                    <div class="col-7">
+                                        <h4 class="card-title">Number of Donor</h4>
+                                        <p class="card-category">Since website launched</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="userdatabase.php?type=donor"><i class="fa fa-arrow-right fs-2" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <canvas id="lineGraphDonor"></canvas>
+                                <div class="row">
+                                    <canvas id="lineGraphDonor"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 pb3">
                         <div class="card">
                             <div class="card-header" id="admin-graph">
-                                <h4 class="card-title">Number of Charity Joined</h4>
-                                <p class="card-category">Since website launched</p>
+                                <div class="row justify-content-between">
+                                    <div class="col-10">
+                                        <h4 class="card-title">Number of Charity Joined</h4>
+                                        <p class="card-category">Since website launched</p>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="userdatabase.php?type=charity"><i class="fa fa-arrow-right fs-2" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <canvas id="lineGraphCharity"></canvas>
+                                <div class="row">
+                                    <canvas id="lineGraphCharity"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
