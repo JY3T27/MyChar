@@ -58,11 +58,21 @@ include 'config.php';
     <?php
     include 'layout/nav.php';
 
-    $userID = $_SESSION["UID"];
-    $role = $_SESSION["role"];
+    $id = $_GET["id"];
+    if (isset($id) && !empty($id)) {
+        $sql = "SELECT * FROM users WHERE users.user_id = '$id' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+        if ($result) {
+            $row = mysqli_fetch_assoc($result);
+            $role = $row['user_role'];
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+    }
+
     if ($role == 'donor') {
         $sql = "SELECT * FROM users INNER JOIN donor ON users.user_id = donor.user_id  
-            WHERE users.user_id = '$userID' LIMIT 1";
+            WHERE users.user_id = '$id' LIMIT 1";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
@@ -76,7 +86,7 @@ include 'config.php';
         }
     } elseif ($role == 'charity') {
         $sql = "SELECT * FROM users INNER JOIN charity ON users.user_id = charity.user_id  
-            WHERE users.user_id = '$userID' LIMIT 1";
+            WHERE users.user_id = '$id' LIMIT 1";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
@@ -98,7 +108,7 @@ include 'config.php';
         }
     } else if ($role == 'admin') {
         $sql = "SELECT * FROM users INNER JOIN admin ON users.user_id = admin.user_id
-                WHERE users.user_id = '$userID' LIMIT 1";
+                WHERE users.user_id = '$id' LIMIT 1";
         $result = mysqli_query($conn, $sql);
         if ($result) {
             if (mysqli_num_rows($result) > 0) {

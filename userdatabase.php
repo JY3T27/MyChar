@@ -14,44 +14,37 @@ include 'config.php';
 <body class="index-page">
     <?php
     include 'layout/nav.php';
-
     $type = $_GET["type"];
-    /*
-    $sql = "SELECT * FROM charity WHERE user_id = '$userID' LIMIT 1";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-        $row = mysqli_fetch_assoc($result);
-        $charityID = $row['charity_id'];
-    } else {
-        echo "Error: " . mysqli_error($conn);
-    }
     ?>
 
     <main class="main">
         <section id="adminDashBoard" class="adminDashBoard section">
-            <div class="container history-container col-md-8 pt-5">
+            <div class="container history-container col-md-8 py-5">
                 <div class="row pt-5">
                     <div class="col section-header">
-                        <h2>Fundraising Campaigns</h2>
-                        <p>Campaigns have organized by your charity</p>
+                        <h2>User Database</h2>
                     </div>
                 </div>
                 <div class="row px-5 pb-5">
+                    <?php if ($type == 'user'): ?>
                     <table class="table">
                         <tr>
-                            <th width="10%">No</th>
-                            <th>Title</th>
-                            <th width="30%">Date</th>
+                            <th width="10%">ID</th>
+                            <th>User Email</th>
+                            <th width="30%">Join Date</th>
+                            <th width="15%">Role</th>
+                            <th width="10%">Action</th>
                         </tr>
                         <?php
-                        $sql = "SELECT * FROM fundraising WHERE charity_id = '$charityID'";
+                        $sql = "SELECT * FROM users";
                         $result = mysqli_query($conn, $sql);
                         if ($result) {
                             if (mysqli_num_rows($result) > 0) {
                                 $numrow = 1;
                                 while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr id='table_content'><td>" .  $numrow . "</td>";
-                                    echo "<td id='title_col'> <a href='fundraising.php?id=" . $row["fundraising_id"] . "'>" . $row["fundraising_title"] . "</a></td><td>" . $row["fundraising_createDate"] . "</td>";
+                                    echo "<tr id='table_content'><td>" .  $row['user_id'] . "</td>";
+                                    echo "<td>" . $row['user_email'] . "</td><td>" . $row['user_joinDate'] . "</td><td>" . $row['user_role'] . "</td>";
+                                    echo "<td><a href='profile_adminView.php?id=" . $row['user_id'] . "'>View</a></td>"; 
                                     echo "</tr>" . "\n\t\t";
                                     $numrow++;
                                 }
@@ -63,6 +56,7 @@ include 'config.php';
                         }
                         ?>
                     </table>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>
