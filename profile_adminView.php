@@ -9,49 +9,6 @@ include 'config.php';
     <?php
     include 'layout/header.php';
     ?>
-    <script>
-        function enableEdit() {
-            const element = document.getElementById("profile_name");
-            var userRole = "<?php echo $_SESSION["role"] ?>";
-            if (element.disabled) {
-                document.getElementById("profile_name").disabled = false;
-                document.getElementById("updateBtn").style.display = "block";
-                document.getElementById("resetBtn").style.display = "block";
-                if (userRole == "charity") {
-                    document.getElementById("profile_phone").disabled = false;
-                    document.getElementById("profile_contactEmail").disabled = false;
-                    document.getElementById("profile_address").disabled = false;
-                    document.getElementById("profile_state").disabled = false;
-                    document.getElementById("profile_URL").disabled = false;
-                    document.getElementById("profile_code").disabled = false;
-                    document.getElementById("profile_desc").disabled = false;
-                } else if (userRole == "admin") {
-                    document.getElementById("website_address1").disabled = false;
-                    document.getElementById("website_address2").disabled = false;
-                    document.getElementById("website_phone").disabled = false;
-                    document.getElementById("website_email").disabled = false;
-                }
-            } else {
-                document.getElementById("profile_name").disabled = true;
-                document.getElementById("updateBtn").style.display = "none";
-                document.getElementById("resetBtn").style.display = "none";
-                if (userRole == "charity") {
-                    document.getElementById("profile_phone").disabled = true;
-                    document.getElementById("profile_contactEmail").disabled = true;
-                    document.getElementById("profile_address").disabled = true;
-                    document.getElementById("profile_state").disabled = true;
-                    document.getElementById("profile_URL").disabled = true;
-                    document.getElementById("profile_code").disabled = true;
-                    document.getElementById("profile_desc").disabled = true;
-                } else if (userRole == "admin") {
-                    document.getElementById("website_address1").disabled = true;
-                    document.getElementById("website_address2").disabled = true;
-                    document.getElementById("website_phone").disabled = true;
-                    document.getElementById("website_email").disabled = true;
-                }
-            }
-        }
-    </script>
 </head>
 
 <body class="index-page">
@@ -106,24 +63,6 @@ include 'config.php';
         } else {
             echo "Error: " . mysqli_error($conn);
         }
-    } else if ($role == 'admin') {
-        $sql = "SELECT * FROM users INNER JOIN admin ON users.user_id = admin.user_id
-                WHERE users.user_id = '$id' LIMIT 1";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            if (mysqli_num_rows($result) > 0) {
-                $row = mysqli_fetch_assoc($result);
-                $profile_name = $row["admin_name"];
-                $profile_email = $row['user_email'];
-                $profile_joinDate = $row['user_joinDate'];
-                $address1 = $row['website_address1'];
-                $address2 = $row['website_address2'];
-                $phone = $row['website_phoneNo'];
-                $email = $row['website_email'];
-            }
-        } else {
-            echo "Error: " . mysqli_error($conn);
-        }
     } else {
         echo "Error: " . mysqli_error($conn);
     }
@@ -140,14 +79,6 @@ include 'config.php';
                                     <h1>Profile</h1>
                                 </div>
                                 <div class="profile-btn col">
-                                    <?php if ($role == 'charity'): ?>
-                                        <button type="submit" id="togglePassword" name="action" value="" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-check-circle fs-1" aria-hidden="true"></i></button>
-                                        <button type="submit" id="togglePassword" name="action" value="ChangePP" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></button>
-                                    <?php endif; ?>
-                                    <button type="button" id="togglePassword" onclick="enableEdit()" class="btn shadow-none bg-transparent border-0">
-                                        <i class="fa fa-pencil-square-o fs-2" aria-hidden="true"></i></button>
                                     <button type="submit" id="togglePassword" onclick="return confirm('Confirm delete account?')" name="action" value="Delete" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
                                 </div>
@@ -236,31 +167,6 @@ include 'config.php';
                                                 <label for="profile_desc" class="col-md-4 col-form-label text-md-end">Description</label>
                                                 <div class="col-md-6">
                                                     <input id="profile_desc" type="text" class="form-control" name="profile_desc" value="<?= $profile_desc ?>" disabled>
-                                                </div>
-                                            </div>
-                                        <?php elseif ($role == 'admin'): ?>
-                                            <div class="row mb-3">
-                                                <label for="website_address1" class="col-md-4 col-form-label text-md-end">Address 1</label>
-                                                <div class="col-md-6">
-                                                    <input id="website_address1" type="text" class="form-control" name="website_address1" value="<?= $address1 ?>" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="website_address2" class="col-md-4 col-form-label text-md-end">Address 2</label>
-                                                <div class="col-md-6">
-                                                    <input id="website_address2" type="text" class="form-control" name="website_address2" value="<?= $address2 ?>" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="website_phone" class="col-md-4 col-form-label text-md-end">Phone No</label>
-                                                <div class="col-md-6">
-                                                    <input id="website_phone" type="text" class="form-control" name="website_phone" value="<?= $phone ?>" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="website_email" class="col-md-4 col-form-label text-md-end">Website Email</label>
-                                                <div class="col-md-6">
-                                                    <input id="website_email" type="text" class="form-control" name="website_email" value="<?= $email ?>" disabled>
                                                 </div>
                                             </div>
                                         <?php endif; ?>

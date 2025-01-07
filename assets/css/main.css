@@ -1292,6 +1292,7 @@ p {
 --------------------------------------------------------------*/
 .history-container table {
   border: 1px solid var(--default-color);
+  margin-bottom: 100px;
 }
 
 .history-container th, td {
