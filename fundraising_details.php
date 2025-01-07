@@ -10,7 +10,21 @@ include 'config.php';
     include 'layout/header.php';
     ?>
     <script>
-
+        function confirmationDlt() {
+            if (confirm("Are you sure you want to delete this fundraising?")) {
+                const confirmationMessage = "Please CONFIRM that you deleting this fundraising? Type DELETE to confirm:";
+                const userInput = prompt(confirmationMessage, "");
+                if (userInput === "DELETE") {
+                    return true;
+                } else {
+                    alert("Deletion cancelled.");
+                    window.location.href = "admin_dashboard.php";
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
     </script>
 </head>
 
@@ -39,7 +53,6 @@ include 'config.php';
         $role = $_SESSION['role'];
     else
         $role = "";
-
     ?>
     <main class="main">
         <section class="fundDetails section pt-5">
@@ -53,11 +66,15 @@ include 'config.php';
                         <?php endif; ?>
                     </div>
                     <div class="col">
-                        <div class="row">
-                            <h1><?= $title ?></h1>
-                        </div>
-                        <div class="row">
-                            <h3>By: <a href="charity.php?id=<?= $charityID ?>"><?= $charity ?></a> </h3>
+                        <div class="row justify-content-between">
+                            <div class="col">
+                                <div class="row">
+                                    <h1><?= $title ?></h1>
+                                </div>
+                                <div class="row">
+                                    <h3>By: <a href="charity.php?id=<?= $charityID ?>"><?= $charity ?></a> </h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,16 +180,23 @@ include 'config.php';
                                     <p class="mb-1"><strong>Target:</strong> RM <span id="targetAmount"><?php echo number_format($target, 2); ?></span></p>
                                     <p><strong>Collected:</strong> RM <span id="collectedAmount"><?php echo number_format($collected, 2); ?></span></p>
                                 </div>
-                                <div class="row">
-                                    <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
-                                </div>
+                                <?php if ($role == "admin"): ?>
+                                    <div class="row">
+                                        <a href="donate_admin.php?id=<?= $fundID ?>">View <i class="fa fa-money" aria-hidden="true"></i></a>
+                                    </div>
+                                <?php elseif ($role == "charity"): ?>
+                                    <div class="row"></div>
+                                <?php else: ?>
+                                    <div class="row">
+                                        <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
         <?php
         include 'layout/footer.php';
         ?>

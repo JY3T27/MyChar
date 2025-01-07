@@ -1,12 +1,6 @@
 <?php
 session_start();
 include 'config.php';
-
-if (!isset($_SESSION['UID'])) {
-    $_SESSION['donating'] = 'question_create.php';
-    echo '<script>window.location.href = "login.php";</script>';
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,16 +14,7 @@ if (!isset($_SESSION['UID'])) {
 <body class="index-page">
     <?php
     include 'layout/nav.php';
-    $userID = $_SESSION['UID'];
-    if (isset($userID) && !empty($userID)) {
-        $sql = 'SELECT * FROM donor
-                INNER JOIN users ON donor.user_id = users.user_id   
-                WHERE users.user_id = ' . $userID;
-        $result = mysqli_query($conn, $sql);
-        $row = mysqli_fetch_assoc($result);
-        $donorID = $row["donor_id"];
-    }
-    $fundID = $_SESSION['donatingID'];
+    $fundID = $_GET['id'];
     if (isset($fundID) && !empty($fundID)) {
         $sql = 'SELECT * FROM fundraising 
                 INNER JOIN charity ON fundraising.charity_id = charity.charity_id   
@@ -91,11 +76,12 @@ if (!isset($_SESSION['UID'])) {
                 <div class="card p-3 mb-5">
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="login">
                         <div class="row px-5">
-                            <h4>Question for the fundraising</h4>
+                            <h4>Update for the fundraising</h4>
                         </div>
                         <div class="row px-5 mb-1">
                             <div class="col-8">
-                                <textarea rows="4" id="question-desc" name="question-desc" class="form-control" placeholder="Type in the question."></textarea>
+                                <input type="text" id="update_id" name="update_id" class="form-control" value="<?= $fundID ?>" hidden>
+                                <textarea rows="4" id="question-desc" name="question-desc" class="form-control" placeholder="Type in the update."></textarea>
                             </div>
                         </div>
                         <div class="row justify-content-md-center mt-3 px-5">
@@ -107,17 +93,15 @@ if (!isset($_SESSION['UID'])) {
                     </form>
                 </div>
         </section>
-
         <?php
         include 'layout/footer.php';
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $fundID = $_POST['update_id'];
             $text = $_POST['question-desc'];
-            $sql = "INSERT INTO question (question_id, donor_id, fundraising_id, question_text, question_textDate) 
-                    VALUES('', '$donorID', '$fundID', '$text', CURRENT_TIMESTAMP)";
+            $sql = "INSERT INTO fundraising_update (update_id, fundraising_id, update_desc, update_date) 
+                    VALUES('', '$fundID', '$text', CURRENT_TIMESTAMP)";
             if (mysqli_query($conn, $sql)) {
-                unset($_SESSION['donatingID']);
-                echo '<script>alert("Successfully ask question. ");window.location.href = "fundraising_details.php?id=' . $fundID . '";</script>';
+                echo '<script>alert("Successfully add update. ");window.location.href = "fundraising.php?id=' . $fundID . '";</script>';
             } else {
                 echo '<script>alert("Error");</script>';
             }

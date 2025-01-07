@@ -190,6 +190,46 @@ include 'config.php';
                 </div>
                 <div class="history-container row justify-content-center m-3">
                     <div class="col-11">
+                        <div class="row jusitfy-content-between">
+                            <div class="col">
+                                <h3>Fundraising Update</h3>
+                            </div>
+                            <div class="col-1">
+                                <a href="update.php?id=<?= $fundID ?>"><i class="fa fa-plus fs-2" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <tr>
+                                <th width="10%">No</th>
+                                <th>Update</th>
+                                <th width="20%">Date</th>
+                                <th width="10%">Action</th>
+                            </tr>
+                            <?php
+                            $sql = "SELECT * FROM fundraising_update WHERE fundraising_id = '$fundID'";
+                            $result = mysqli_query($conn, $sql);
+                            if ($result) {
+                                if (mysqli_num_rows($result) > 0) {
+                                    $numrow = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<tr id='table_content'><td>" .  $numrow . "</td>";
+                                        echo "<td>" . $row["update_desc"] . "</td><td>" . $row["update_date"] . "</td>";
+                                        echo "<td><a href='update_edit.php?id=" . $row["update_id"] . "'>View</a></td>";
+                                        echo "</tr>" . "\n\t\t";
+                                        $numrow++;
+                                    }
+                                } else {
+                                    echo '<tr><td colspan="4">No updates so far.</td></tr>';
+                                }
+                            } else {
+                                echo "Error: " . mysqli_error($conn);
+                            }
+                            ?>
+                        </table>
+                    </div>
+                </div>
+                <div class="history-container row justify-content-center m-3">
+                    <div class="col-11">
                         <h3>Question Asked</h3>
                         <table class="table">
                             <tr>
@@ -211,7 +251,7 @@ include 'config.php';
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<tr id='table_content'><td>" .  $numrow . "</td>";
                                         echo "<td>" . $row["question_textDate"] . "</td><td>" . $row["question_text"] . "</td><td>" . $row["donor_name"] . "</td>";
-                                        if (isset($row['question_reply']) && !empty($row['question_reply'])) 
+                                        if (isset($row['question_reply']) && !empty($row['question_reply']))
                                             echo '<td id="tickbox"><input type="checkbox" checked disabled></td>';
                                         else
                                             echo '<td id="tickbox"><input type="checkbox" disabled></td>';
