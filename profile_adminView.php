@@ -48,6 +48,7 @@ include 'config.php';
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
+                $charityID = $row['charity_id'];
                 $profile_name = $row['charity_name'];
                 $profile_email = $row['user_email'];
                 $profile_joinDate = $row['user_joinDate'];
@@ -69,22 +70,23 @@ include 'config.php';
     ?>
     <main class="main">
         <div class="container py-5">
-            <div class="row justify-content-center py-5">
-                <!--profile card -->
-                <div class="profile-container col-md-8 py-5">
-                    <div class="card text-center py-4 px-3">
-                        <form id="profile" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
+            <form id="profile" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
+                <div class="row justify-content-center py-5">
+                    <!--profile card -->
+                    <div class="profile-container col-md-9 py-5">
+                        <div class="card text-center py-4 px-3">
                             <div class="row">
                                 <div class="col">
                                     <h1>Profile</h1>
                                 </div>
                                 <div class="profile-btn col">
-                                    <button type="submit" id="togglePassword" onclick="return confirm('Confirm delete account?')" name="action" value="Delete" class="btn shadow-none bg-transparent border-0">
+                                    <button type="submit" id="togglePassword" onclick="return confirm('Confirm delete charity?')" name="action" value="DeleteCharity" class="btn shadow-none bg-transparent border-0">
                                         <i class="fa fa-trash fs-2" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                             <div class="container pb-5">
                                 <div class="row">
+                                    <input id="view_id" type="text" class="form-control" name="view_id" value="<?= $id ?>" hidden>
                                     <?php if ($role == 'charity'): ?>
                                         <div class="row">
                                             <div class="col">
@@ -183,70 +185,35 @@ include 'config.php';
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <?php if ($role == 'charity'): ?>
+                            <div class="post-option m-3">
+                                <div class="row">
+                                    <div class="col d-flex align-items-center">
+                                        <h5>View fundraising campaigns organized</h5>
+                                    </div>
+                                    <div class="col-1">
+                                        <a href="fundraisinglist_admin.php?id=<?= $charityID ?>"><i class="fa fa-chevron-right fs-2" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <?php
         include 'layout/footer.php';
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $action = $_POST["action"];
-            $userID = $_SESSION["UID"];
-            $role = $_SESSION["role"];
-            if ($action == "Update") {
-                if ($role == 'donor') {
-                    $edited_name = $_POST['profile_name'];
-                    $sql = "UPDATE donor SET donor_name = '$edited_name' WHERE donor.user_id = '$userID'";
-                    if (mysqli_query($conn, $sql)) {
-                        echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
-                    } else {
-                        echo '<script>alert("Error");</script>';
-                    }
-                } elseif ($role == 'charity') {
-                    $edited_name = $_POST['profile_name'];
-                    $edited_phone = $_POST['profile_phone'];
-                    $edited_email = $_POST['profile_contactEmail'];
-                    $edited_address = $_POST['profile_address'];
-                    $edited_state = $_POST['profile_state'];
-                    $edited_URL = $_POST['profile_URL'];
-                    $edited_code = $_POST['profile_code'];
-                    $edited_desc = $_POST['profile_desc'];
-                    $sql = "UPDATE charity SET charity_name = '$edited_name', charity_phoneNo = '$edited_phone', charity_contactEmail = '$edited_email', 
-                            charity_address = '$edited_address', charity_state = '$edited_state', charity_websiteURL = '$edited_URL', 
-                            charity_code = '$edited_code', charity_desc = '$edited_desc'
-                            WHERE charity.user_id = '$userID'";
-                    if (mysqli_query($conn, $sql)) {
-                        echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
-                    } else {
-                        echo '<script>alert("Error");</script>';
-                    }
-                } elseif ($role == 'admin') {
-                    $edited_name = $_POST['profile_name'];
-                    $edited_address1 = $_POST['website_address1'];
-                    $edited_address2 = $_POST['website_address2'];
-                    $edited_phone = $_POST['website_phone'];
-                    $edited_email = $_POST['website_email'];
-                    $sql = "UPDATE admin SET admin_name = '$edited_name', website_phoneNo = '$edited_phone', website_email = '$edited_email', 
-                            website_address1 = '$edited_address1', website_address2 = '$edited_address2'   
-                            WHERE admin.user_id = '$userID'";
-                    if (mysqli_query($conn, $sql)) {
-                        echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';
-                    } else {
-                        echo '<script>alert("Error");</script>';
-                    }
-                } else {
-                    echo '<script>alert("Error");</script>';
-                }
-            } elseif ($action == "Delete") {
+            $userID = $_POST["view_id"];
+            if ($action == "DeleteCharity") {
                 $sql = "DELETE FROM users WHERE users.user_id = '$userID'";
                 if (mysqli_query($conn, $sql)) {
-                    echo '<script>alert("Delete Successfully."); window.location.href = "logout.php";</script>';
+                    echo '<script>alert("Delete Successfully."); window.location.href = "userdatabase.php?type=charity";</script>';
                 } else {
                     echo '<script>alert("Error");</script>';
                 }
-            } elseif ($action == "ChangePP") {
-                echo '<script>window.location.href = "profilePic.php";</script>';
             } else {
                 echo '<script>alert("Error");</script>';
             }

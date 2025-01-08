@@ -9,6 +9,12 @@ include 'config.php';
     <?php
     include 'layout/header.php';
     ?>
+    <style>
+        .graph-col {
+            flex: 1 1 400px;
+            max-width: 100%; 
+        }
+    </style>
 </head>
 
 <body class="index-page">
@@ -81,11 +87,11 @@ include 'config.php';
                     </div>
                 </div>
                 <div class="row justify-content-center pb-5">
-                    <div class="col-md-4 pb-3">
+                    <div class="graph-col mb-3">
                         <div class="card">
                             <div class="card-header" id="admin-graph">
                                 <div class="row justify-content-between">
-                                    <div class="col-7">
+                                    <div class="col-10">
                                         <h4 class="card-title">Number of User</h4>
                                         <p class="card-category">Since website launched</p>
                                     </div>
@@ -101,11 +107,11 @@ include 'config.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 pb-3">
+                    <div class="graph-col mb-3">
                         <div class="card">
                             <div class="card-header" id="admin-graph">
                                 <div class="row justify-content-between">
-                                    <div class="col-7">
+                                    <div class="col-10">
                                         <h4 class="card-title">Number of Donor</h4>
                                         <p class="card-category">Since website launched</p>
                                     </div>
@@ -121,7 +127,7 @@ include 'config.php';
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 pb3">
+                    <div class="graph-col mb-3">
                         <div class="card">
                             <div class="card-header" id="admin-graph">
                                 <div class="row justify-content-between">
