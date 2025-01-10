@@ -756,6 +756,10 @@ p {
   border: 1px solid var(--accent-color); 
 }
 
+#verifyBtn {
+  font-size: 20px;
+}
+
 
 .login-container i {
   color: var(--default-color);
@@ -846,6 +850,15 @@ p {
 }
 
 .profile-container button {
+  border: none; /* Removes border */
+  cursor: pointer; /* Changes cursor to pointer */
+  text-align: center;
+  margin: 10px;
+  height: auto;
+  width: auto;
+}
+
+.profile-container a {
   border: none; /* Removes border */
   cursor: pointer; /* Changes cursor to pointer */
   text-align: center;

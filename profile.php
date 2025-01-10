@@ -81,6 +81,7 @@ include 'config.php';
         if ($result) {
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
+                $charity_id = $row['charity_id'];
                 $profile_name = $row['charity_name'];
                 $profile_email = $row['user_email'];
                 $profile_joinDate = $row['user_joinDate'];
@@ -131,8 +132,7 @@ include 'config.php';
                                 </div>
                                 <div class="profile-btn col">
                                     <?php if ($role == 'charity'): ?>
-                                        <button type="submit" id="togglePassword" name="action" value="" class="btn shadow-none bg-transparent border-0">
-                                            <i class="fa fa-check-circle fs-1" aria-hidden="true"></i></button>
+                                        <a href="verification.php?id=<?= $charity_id?>"><i class="fa fa-check-circle fs-1" aria-hidden="true"></i></a>
                                         <button type="submit" id="togglePassword" name="action" value="ChangePP" class="btn shadow-none bg-transparent border-0">
                                             <i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></button>
                                     <?php endif; ?>
