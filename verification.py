@@ -9,7 +9,8 @@ from spacy.pipeline import EntityRuler
 import re
 import requests
 from bs4 import BeautifulSoup
-import time
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 def extract_text_pdf(file_path):
     with pymupdf.open(file_path) as doc:
@@ -129,11 +130,10 @@ if __name__ == "__main__":
 
         name = "" 
         text = check_file_type(file_name)
-        modified_text = text.replace("\\", "\\\\")
         doc = ner(text)
         for ent in doc.ents:
             if ent.label_ == "SIJIL ROS":
-                organization = extract_ros(modified_text)
+                organization = extract_ros(text)
                 part = separate_string(organization)
                 name = part[0]
                 break
@@ -143,7 +143,7 @@ if __name__ == "__main__":
             sys.exit()
 
         if (find_organization(name)):
-            print("Successful found in the list")
+            print("Successful found in the list.")
         else:
             print("The organization is not in the list.")
 
