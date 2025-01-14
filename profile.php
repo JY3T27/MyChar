@@ -132,7 +132,7 @@ include 'config.php';
                                 </div>
                                 <div class="profile-btn col">
                                     <?php if ($role == 'charity'): ?>
-                                        <a href="verification.php?id=<?= $charity_id?>"><i class="fa fa-check-circle fs-1" aria-hidden="true"></i></a>
+                                        <a href="verification.php?id=<?= $userID?>"><i class="fa fa-check-circle fs-1" aria-hidden="true"></i></a>
                                         <button type="submit" id="togglePassword" name="action" value="ChangePP" class="btn shadow-none bg-transparent border-0">
                                             <i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></button>
                                     <?php endif; ?>

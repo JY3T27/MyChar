@@ -14,6 +14,7 @@ include 'config.php';
 <body class="index-page">
     <?php
     include 'layout/nav.php';
+    $keyword = 'ROS website';
     $target_dir = "assets/docs/uploads/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
@@ -49,8 +50,8 @@ include 'config.php';
         <div class="container py-5">
             <div class="row justify-content-center py-5">
                 <div class="profile-container col-md-8 py-5">
-                    <div class="card text-center py-4 px-3">
-                        <form id="profile" action="verify.php" method="POST" enctype="multipart/form-data">
+                    <div class="card py-4 px-3">
+                        <form id="profile" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col">
                                     <h1>Verification</h1>
@@ -61,6 +62,16 @@ include 'config.php';
                                     <h5><?= $result ?></h5>
                                 </div>
                             </div>
+                            <input type="text" id="fileName" name="fileName" value="<?= $target_file ?>" hidden>
+                            <?php if (strpos($result, $keyword) !== false): ?>
+                                <button type="button" id="togglePassword" name="action" value="Obtain" class="btn shadow-none bg-transparent border-0">
+                                    Proceed
+                                </button>
+                            <?php else: ?>
+                                <button type="button" id="togglePassword" name="action" value="Back" class="btn shadow-none bg-transparent border-0">
+                                    Back
+                                </button>
+                            <?php endif; ?>
                         </form>
                     </div>
                 </div>
@@ -70,6 +81,25 @@ include 'config.php';
 
     <?php
     include 'layout/footer.php';
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $userID = $_SESSION['verifing'];
+        $action = $_POST["action"];
+        $doc = $_POST["fileName"];
+        if ($action == "Obtain") {
+            $sql = "UPDATE charity SET charity_verified = '1', charity_doc = '$doc' WHERE charity.user_id = '$userID'";
+            if (mysqli_query($conn, $sql)) {
+                unset($_SESSION);
+                echo '<script>alert("Successfully obtained Verify Badge."); window.location.href = "profile.php?id=' . $userID . '";</script>';
+            } else {
+                echo '<script>alert("Error");</script>';
+            }
+        } elseif ($action == "Back") {
+            echo 'window.location.href = "profile.php?id=' . $userID . '";</script>';
+        } else {
+            echo '<script>alert("Error");</script>';
+        }
+    }
+
     ?>
 </body>
 

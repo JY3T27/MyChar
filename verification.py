@@ -143,11 +143,11 @@ if __name__ == "__main__":
             sys.exit()
 
         if (find_organization(name)):
-            print("Successful found in the list.")
+            print(f"Your organization name: \n\t{name}\nSuccessful found in ROS website.")
         else:
             print("The organization is not in the list.")
 
     else:
-        print("nothing happened")
+        print("Error. Nothing happened")
 
 

@@ -8,6 +8,7 @@ include 'config.php';
 <head>
     <?php
     include 'layout/header.php';
+    $_SESSION['verifing'] = $_GET["id"];
     ?>
 </head>
 
@@ -45,7 +46,6 @@ include 'config.php';
                 </div>
             </div>
         </div>
-
         <?php
         include 'layout/footer.php';
         ?>
