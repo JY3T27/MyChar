@@ -52,8 +52,11 @@ include 'config.php';
                                         <h1>' . $row["fundraising_title"] . '</h1>
                                         <h5>Organized by: <strong>' . $row["charity_name"] . '</strong></h5>
                                         <h5>Target: <strong>RM ' . $row["fundraising_target"] . '</strong></h5>
-                                        <h3><strong>' . $percent . '%</strong> of Fund Collected</h3>
-                                    </div></div>';
+                                        <h3><strong>' . $percent . '%</strong> of Fund Collected</h3>';
+                            if ($row['fundraising_status'] == 1) {
+                                echo '<h3 style="color: var(--accent-color); font-weight: bold; padding-left: 3%;">Completed<h3>';
+                            }        
+                            echo '</div></div>';
                         }
                     }
                 } else {

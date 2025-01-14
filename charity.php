@@ -29,7 +29,7 @@ include 'config.php';
         $phone = $row['charity_phoneNo'];
         $url = $row['charity_websiteURL'];
         $profile_pic = $row['charity_profilepic'];
-        $code = $row['charity_code'];
+        $verified = $row['charity_verified'];
         $desc = $row['charity_desc'];
     }
     ?>
@@ -45,7 +45,12 @@ include 'config.php';
                         <?php endif; ?>
                     </div>
                     <div class="col">
-                        <h1 class="mb-0"><?= $name ?></h1>
+                        <h1 class="mb-0">
+                            <?= $name ?>
+                            <?php if ($verified == 1):?>
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                            <?php endif;?>
+                        </h1>
                     </div>
                 </div>
                 <div class="row">

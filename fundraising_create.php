@@ -97,7 +97,7 @@ include 'config.php';
                     if (move_uploaded_file($_FILES['pic-input']['tmp_name'], $uploadFile)) {
                         $sqlImage = "UPDATE fundraising SET fundraising_image = '$uploadFile' WHERE fundraising_id = '$lastInsertedId'";
                         mysqli_query($conn, $sqlImage);
-                        echo '<script>alert("Fundraising is created successfully."); window.location.href = "fundraising.php";</script>';
+                        echo '<script>alert("Fundraising is created successfully."); window.location.href = "fundraisinglist.php";</script>';
                     } else
                         echo '<script>alert("Error in uploading");</script>';
                 } else

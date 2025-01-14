@@ -27,7 +27,7 @@ include 'config.php';
                 </div>
                 <div class="row justify-content-md-center pb-5 mb-5">
                     <?php
-                    $sql = "SELECT charity_id, charity_name, charity_state, charity_profilepic FROM charity";
+                    $sql = "SELECT charity_id, charity_name, charity_state, charity_profilepic, charity_verified FROM charity";
                     $result = mysqli_query($conn, $sql);
                     if ($result) {
                         if (mysqli_num_rows($result) > 0) {
@@ -41,9 +41,11 @@ include 'config.php';
                                 else
                                     echo '<img src="assets\img\profile_icon.jpg" alt="ProfilePic" id="image-charity" class="image-fluid">';
                                 echo '</div><div class="col-md-7 px-3">
-                                            <h5>' . $row["charity_name"] . '</h5>
-                                            <p>' . $row["charity_state"] . '</p>
-                                        </div></div></div></div>';
+                                            <h5>' . $row["charity_name"]; 
+                                if ($row['charity_verified'] == 1) {
+                                    echo ' <i class="fa fa-check-circle-o fs-2" aria-hidden="true"></i>';
+                                } 
+                                echo '</h5><p>' . $row["charity_state"] . '</p></div></div></div></div>';
                             }
                         }
                     } else {

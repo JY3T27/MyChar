@@ -181,7 +181,7 @@ p {
     padding: 6px 15px;
   }
 
-  .header .navmenu {
+  .header .cvmenu {
     order: 3;
   }
 }
@@ -948,6 +948,8 @@ p {
   margin: auto;
   border-radius: 50%;
 }
+
+
 
 .charitylist-container {
   align-items: center;

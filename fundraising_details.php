@@ -187,9 +187,11 @@ include 'config.php';
                                 <?php elseif ($role == "charity"): ?>
                                     <div class="row"></div>
                                 <?php else: ?>
-                                    <div class="row">
-                                        <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
-                                    </div>
+                                    <?php if ($status == 0): ?>
+                                        <div class="row">
+                                            <a href="donate.php?id=<?= $fundID ?>">Donate <i class="fa fa-money" aria-hidden="true"></i></a>
+                                        </div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </div>
                         </div>

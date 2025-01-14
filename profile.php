@@ -23,7 +23,6 @@ include 'config.php';
                     document.getElementById("profile_address").disabled = false;
                     document.getElementById("profile_state").disabled = false;
                     document.getElementById("profile_URL").disabled = false;
-                    document.getElementById("profile_code").disabled = false;
                     document.getElementById("profile_desc").disabled = false;
                 } else if (userRole == "admin") {
                     document.getElementById("website_address1").disabled = false;
@@ -41,7 +40,6 @@ include 'config.php';
                     document.getElementById("profile_address").disabled = true;
                     document.getElementById("profile_state").disabled = true;
                     document.getElementById("profile_URL").disabled = true;
-                    document.getElementById("profile_code").disabled = true;
                     document.getElementById("profile_desc").disabled = true;
                 } else if (userRole == "admin") {
                     document.getElementById("website_address1").disabled = true;
@@ -91,7 +89,6 @@ include 'config.php';
                 $profile_phone = $row['charity_phoneNo'];
                 $profile_url = $row['charity_websiteURL'];
                 $profile_pic = $row['charity_profilepic'];
-                $profile_code = $row['charity_code'];
                 $profile_desc = $row['charity_desc'];
             }
         } else {
@@ -123,7 +120,7 @@ include 'config.php';
         <div class="container py-5">
             <div class="row justify-content-center py-5">
                 <!--profile card -->
-                <div class="profile-container col-md-8 py-5">
+                <div class="profile-container col-md-10 py-5">
                     <div class="card text-center py-4 px-3">
                         <form id="profile" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                             <div class="row">
@@ -217,12 +214,6 @@ include 'config.php';
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
-                                                <label for="profile_code" class="col-md-4 col-form-label text-md-end">Charity Code / Company Code</label>
-                                                <div class="col-md-6">
-                                                    <input id="profile_code" type="text" class="form-control" name="profile_code" value="<?= $profile_code ?>" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
                                                 <label for="profile_desc" class="col-md-4 col-form-label text-md-end">Description</label>
                                                 <div class="col-md-6">
                                                     <input id="profile_desc" type="text" class="form-control" name="profile_desc" value="<?= $profile_desc ?>" disabled>
@@ -294,11 +285,10 @@ include 'config.php';
                     $edited_address = $_POST['profile_address'];
                     $edited_state = $_POST['profile_state'];
                     $edited_URL = $_POST['profile_URL'];
-                    $edited_code = $_POST['profile_code'];
                     $edited_desc = $_POST['profile_desc'];
                     $sql = "UPDATE charity SET charity_name = '$edited_name', charity_phoneNo = '$edited_phone', charity_contactEmail = '$edited_email', 
                             charity_address = '$edited_address', charity_state = '$edited_state', charity_websiteURL = '$edited_URL', 
-                            charity_code = '$edited_code', charity_desc = '$edited_desc'
+                            charity_desc = '$edited_desc'
                             WHERE charity.user_id = '$userID'";
                     if (mysqli_query($conn, $sql)) {
                         echo '<script>alert("Edit Successfully."); window.location.href = "profile.php";</script>';

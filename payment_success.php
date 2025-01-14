@@ -39,6 +39,13 @@ include 'config.php';
     if (!$result) {
         echo "Error: " . mysqli_error($conn);
     }
+
+    $update_sql = "UPDATE fundraising SET fundraising_status = 1
+                   WHERE fundraising_fund >= fundraising_target AND fundraising_id = '$fundID';";
+    $result = mysqli_query($conn, $update_sql);
+    if (!$result) {
+    echo "Error: " . mysqli_error($conn);
+    }
     ?>
     <main class="main">
         <section class="donateCard section py-5">

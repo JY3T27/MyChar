@@ -103,7 +103,7 @@ include 'config.php'
                         } else if ($role == "charity") {
                             $lastInsertedId = mysqli_insert_id($conn);
                             $sql = "INSERT INTO charity (charity_id, user_id, charity_name, charity_address, charity_contactEmail, 
-                            charity_phoneNo, charity_websiteURL, charity_verified, charity_code, charity_desc) 
+                            charity_phoneNo, charity_websiteURL, charity_verified, charity_doc, charity_desc) 
                             VALUES ('','$lastInsertedId', '$name', '', '', '', '', '', '', '')";
                             if (mysqli_query($conn, $sql)) {
                                 echo '<script>alert("Register Successfully. "); window.location.href = "login.php"</script>';
