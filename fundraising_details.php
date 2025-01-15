@@ -156,7 +156,7 @@ include 'config.php';
                                         </div>
                                         <div class="row justify-content-end p-3">
                                             <?php if ($role != 'charity' && $role != 'admin'): ?>
-                                                <div class="col-3 m-1">
+                                                <div class="col-5 m-1">
                                                     <a href="question_create.php?id=<?= $fundID ?>" id="buttonAsk">Ask</a>
                                                 </div>
                                             <?php endif; ?>

@@ -17,11 +17,20 @@ include 'config.php';
     $fundID = $_GET["id"];
     $sql = "SELECT * FROM donation 
             INNER JOIN fundraising ON donation.fundraising_id = fundraising.fundraising_id  
-            WHERE donation.fundraising_id = '$fundID' LIMIT 1";
+            WHERE donation.fundraising_id = '$fundID'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         $row = mysqli_fetch_assoc($result);
         $fund_title = $row['fundraising_title'];
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+
+    $totalsql = "SELECT SUM(donation_amount) FROM donation WHERE fundraising_id ='$fundID';";
+    $result = mysqli_query($conn, $totalsql);
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        $total = $row['SUM(donation_amount)'];
     } else {
         echo "Error: " . mysqli_error($conn);
     }
@@ -46,7 +55,7 @@ include 'config.php';
                         <?php
                         $sql = "SELECT * FROM donation 
                                 INNER JOIN donor ON donation.donor_id = donor.donor_id  
-                                WHERE donation.fundraising_id = '$fundID' LIMIT 1";
+                                WHERE donation.fundraising_id = '$fundID'";
                         $result = mysqli_query($conn, $sql);
                         if ($result) {
                             if (mysqli_num_rows($result) > 0) {
@@ -56,6 +65,7 @@ include 'config.php';
                                     echo "<td>" . $row['donation_method'] . "</td><td>" . $row['donation_date'] . "</td>";
                                     echo "</tr>" . "\n\t\t";
                                 }
+                                echo '<tr><td colspan="5">Total Donation: ' . $total . '</td></tr>';
                             } else {
                                 echo '<tr><td colspan="5">0 results</td></tr>';
                             }

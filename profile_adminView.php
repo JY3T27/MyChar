@@ -58,7 +58,6 @@ include 'config.php';
                 $profile_phone = $row['charity_phoneNo'];
                 $profile_url = $row['charity_websiteURL'];
                 $profile_pic = $row['charity_profilepic'];
-                $profile_code = $row['charity_code'];
                 $profile_desc = $row['charity_desc'];
             }
         } else {
@@ -157,12 +156,6 @@ include 'config.php';
                                                 <label for="profile_URL" class="col-md-4 col-form-label text-md-end">Website URL</label>
                                                 <div class="col-md-6">
                                                     <input id="profile_URL" type="text" class="form-control" name="profile_URL" value="<?= $profile_url ?>" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="profile_code" class="col-md-4 col-form-label text-md-end">Charity Code / Company Code</label>
-                                                <div class="col-md-6">
-                                                    <input id="profile_code" type="text" class="form-control" name="profile_code" value="<?= $profile_code ?>" disabled>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
