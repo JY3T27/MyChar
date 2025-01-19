@@ -129,7 +129,7 @@ include 'config.php';
                                 </div>
                                 <div class="profile-btn col">
                                     <?php if ($role == 'charity'): ?>
-                                        <a href="verification.php?id=<?= $userID?>"><i class="fa fa-check-circle fs-1" aria-hidden="true"></i></a>
+                                        <a href="verification.php?id=<?= $userID ?>"><i class="fa fa-check-circle fs-1" aria-hidden="true"></i></a>
                                         <button type="submit" id="togglePassword" name="action" value="ChangePP" class="btn shadow-none bg-transparent border-0">
                                             <i class="fa fa-user-circle-o fs-2" aria-hidden="true"></i></button>
                                     <?php endif; ?>
@@ -260,6 +260,56 @@ include 'config.php';
                             </div>
                         </form>
                     </div>
+                    <?php if ($role == 'admin'): ?>
+                        <div class="post-option m-3">
+                            <div class="row">
+                                <div class="col d-flex align-items-center">
+                                    <h5>Add Admin</h5>
+                                </div>
+                                <div class="col-1">
+                                    <a href="create_admin.php"><i class="fa fa-chevron-right fs-2" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="history-container py">
+                            <table class="table">
+                                <tr>
+                                    <th width="10%">ID</th>
+                                    <th>User Email</th>
+                                    <th width="20%">Join Date</th>
+                                    <th width="10%">Action</th>
+                                </tr>
+                                <?php
+                                $sql = "SELECT * FROM admin INNER JOIN users ON users.user_id = admin.user_id";
+                                $result = mysqli_query($conn, $sql);
+                                if ($result) {
+                                    $numrow = 0;
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            if ($row['admin_id'] != '1' && $row['user_id'] != $_SESSION['UID']) {
+                                                echo "<tr id='table_content'><td>" .  $row['admin_id'] . "</td>";
+                                                echo "<td>" . $row['user_email'] . "</td><td>" . $row['user_joinDate'] . "</td>";
+                                                echo "<td><a href='admin_view.php?id=" . $row['admin_id'] . "'>View</a></td>";
+                                                echo "</tr>" . "\n\t\t";
+                                                $numrow++;
+                                            }
+                                        }
+                                        if ($numrow == 0) {
+                                            echo '<tr><td colspan="4">0 results</td></tr>';
+                                        }
+                                    
+                                    } else {
+                                        echo '<tr><td colspan="4">0 results</td></tr>';
+                                    }
+                                } else {
+                                    echo "Error: " . mysqli_error($conn);
+                                }
+                                ?>
+                            </table>
+                        </div>
+
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
