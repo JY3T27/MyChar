@@ -189,18 +189,19 @@ include 'config.php';
                         <tr>
                             <th width="10%">No</th>
                             <th>Title</th>
+                            <th>Charity</th>
                             <th>Date</th>
                             <th width="5%">Status</th>
                             <th width="15%">Action</th>
                         </tr>
                         <?php
-                        $sql = "SELECT * FROM report";
+                        $sql = "SELECT * FROM report INNER JOIN charity ON report.charity_id = charity.charity_id";
                         $result = mysqli_query($conn, $sql);
                         if ($result) {
                             if (mysqli_num_rows($result) > 0) {
                                 $numrow = 1;
                                 while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<tr><td>" .  $numrow . "</td><td>" . $row["report_title"] . "</td><td>" . $row["report_date"] . "</td>";
+                                    echo "<tr><td>" .  $numrow . "</td><td>" . $row["report_title"] . "</td><td>". $row["charity_name"] . "</td><td>" . $row["report_date"] . "</td>";
                                     if ($row['report_status'] == 1)
                                         echo '<td id="tickbox"><input type="checkbox" checked disabled></td>';
                                     else

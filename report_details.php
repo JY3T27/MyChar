@@ -17,13 +17,15 @@ include 'config.php';
     $reportID = $_GET['id'];
     if (isset($reportID) && !empty($reportID)) {
         $sql = 'SELECT * FROM report
-                INNER JOIN users ON report.user_id = users.user_id   
+                INNER JOIN users ON report.user_id = users.user_id
+                INNER JOIN charity ON report.charity_id = charity.charity_id   
                 WHERE report_id = ' . $reportID;
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_assoc($result);
         $email = $row["user_email"];
         $title = $row["report_title"];
         $content = $row["report_content"];
+        $charityName = $row['charity_name'];
         $date = $row["report_date"];
         $status = $row["report_status"];
         if ($status == '1') {
@@ -73,6 +75,12 @@ include 'config.php';
                                             <div class="col-md-6">
                                                 <input id="report_title" type="email" class="form-control" name="report_title" value="<?= $title ?>" required disabled>
                                                 <input id="report_id" type="text" name="report_id" value="<?= $_GET['id'] ?>" hidden>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="report_charity" class="col-md-4 col-form-label text-md-end">Charity</label>
+                                            <div class="col-md-6">
+                                                <input id="report_charity" type="email" class="form-control" name="report_charity" value="<?= $charityName ?>" required disabled>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
