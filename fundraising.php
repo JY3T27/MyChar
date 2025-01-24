@@ -159,7 +159,8 @@ include 'config.php';
                                 <th width="10%">No</th>
                                 <th width="30%">Date</th>
                                 <th width="20%">Amount(RM)</th>
-                                <th width="30%">Donated By</th>
+                                <th width="25%">Donated By</th>
+                                <th width="5%">Status</th>
                                 <th width="10%">Action</th>
                             </tr>
                             <?php
@@ -173,6 +174,10 @@ include 'config.php';
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         echo "<tr id='table_content'><td>" .  $numrow . "</td>";
                                         echo "<td>" . $row["donation_date"] . "</td><td id='amount_col'>" . $row["donation_amount"] . "</td><td>" . $row["donor_name"] . "</td>";
+                                        if ($row['donation_status'] == 1)
+                                            echo '<td id="tickbox"><input type="checkbox" checked disabled></td>';
+                                        else
+                                            echo '<td id="tickbox"><input type="checkbox" disabled></td>';
                                         echo "<td><a href='donation_details.php?id=" . $row["donation_id"] . "'>View</a></td>";
                                         echo "</tr>" . "\n\t\t";
                                         $numrow++;

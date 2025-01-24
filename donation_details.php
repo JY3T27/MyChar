@@ -136,14 +136,14 @@ include 'config.php';
                 if ($action == "changeNotDone") {
                     $sql = "UPDATE donation SET donation_status = '0' WHERE donation.donation_id = '$donationID'";
                     if (mysqli_query($conn, $sql)) {
-                        echo '<script>window.location.href = "history_charity.php";</script>';
+                        echo '<script>window.location.href = "fundraising_charity.php";</script>';
                     } else {
                         echo '<script>alert("Error in changing status.");</script>';
                     }
                 } elseif ($action == "changeDone") {
                     $sql = "UPDATE donation SET donation_status = '1' WHERE donation.donation_id = '$donationID'";
                     if (mysqli_query($conn, $sql)) {
-                        echo '<script>window.location.href = "history_charity.php";</script>';
+                        echo '<script>window.location.href = "fundraising_charity.php";</script>';
                     } else {
                         echo '<script>alert("Error in changing status.");</script>';
                     }
